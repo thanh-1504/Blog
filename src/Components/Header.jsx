@@ -68,6 +68,7 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
         {hasSearchInput && (
           <div className="flex items-center w-full max-w-[700px] rounded-xl bg-[#eceff1] py-3">
             <svg
+            onClick={() => console.log("working")}
               className="w-full mx-5 max-w-4"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"

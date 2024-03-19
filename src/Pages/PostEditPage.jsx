@@ -31,7 +31,6 @@ const PostEditPage = () => {
   const category = watch("category");
   const handleEditPost = async (values) => {
     const date = new Date();
-    console.log("True")
     const imgPost = await handleSendImgToFirebase(img);
     console.log(values.category);
     switch (values.category) {
@@ -72,21 +71,21 @@ const PostEditPage = () => {
       }
       case "Life": {
         try {
-          await addDoc(collection(db, "Life"), {
-            title: values.title,
-            author: values.author,
+          await updateDoc(doc(db, "Life",idPost), {
+            title: values.title || dataPostEdit.title,
+            author: values.author || dataPostEdit.author,
             category: values.category,
-            imgURL: imgPost,
-            content: content,
+            imgURL: imgPost || dataPostEdit.imgURL,
+            content: content || dataPostEdit.content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
           });
-          await addDoc(collection(db, "user's post"), {
-            title: values.title,
-            author: values.author,
+          await updateDoc(doc(db, "user's post",idPost), {
+            title: values.title || dataPostEdit.title,
+            author: values.author || dataPostEdit.author,
             category: values.category,
-            imgURL: imgPost,
-            content: content,
+            imgURL: imgPost || dataPostEdit.imgURL,
+            content: content || dataPostEdit.content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
           });
@@ -96,7 +95,6 @@ const PostEditPage = () => {
             autoClose: 1500,
           });
         } catch (error) {
-          console.log(error);
           toast("Add post failed please try again!", {
             type: "error",
             pauseOnHover: false,
@@ -107,21 +105,21 @@ const PostEditPage = () => {
       }
       case "Technology": {
         try {
-          await addDoc(collection(db, "Technology"), {
-            title: values.title,
-            author: values.author,
+          await updateDoc(doc(db, "Technology",idPost), {
+            title: values.title || dataPostEdit.title,
+            author: values.author || dataPostEdit.author,
             category: values.category,
-            imgURL: imgPost,
-            content: content,
+            imgURL: imgPost || dataPostEdit.imgURL,
+            content: content || dataPostEdit.content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
           });
-          await addDoc(collection(db, "user's post"), {
-            title: values.title,
-            author: values.author,
+          await updateDoc(doc(db, "user's post",idPost), {
+            title: values.title || dataPostEdit.title,
+            author: values.author || dataPostEdit.author,
             category: values.category,
-            imgURL: imgPost,
-            content: content,
+            imgURL: imgPost || dataPostEdit.imgURL,
+            content: content || dataPostEdit.content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
           });
@@ -141,21 +139,21 @@ const PostEditPage = () => {
       }
       case "Fashion": {
         try {
-          await addDoc(collection(db, "Fashion"), {
-            title: values.title,
-            author: values.author,
+          await updateDoc(doc(db, "Fashion",idPost), {
+            title: values.title || dataPostEdit.title,
+            author: values.author || dataPostEdit.author,
             category: values.category,
-            imgURL: imgPost,
-            content: content,
+            imgURL: imgPost || dataPostEdit.imgURL,
+            content: content || dataPostEdit.content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
           });
-          await addDoc(collection(db, "user's post"), {
-            title: values.title,
-            author: values.author,
-            imgURL: imgPost,
-            content: content,
+          await updateDoc(doc(db, "user's post",idPost), {
+            title: values.title || dataPostEdit.title,
+            author: values.author || dataPostEdit.author,
             category: values.category,
+            imgURL: imgPost || dataPostEdit.imgURL,
+            content: content || dataPostEdit.content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
           });
@@ -175,21 +173,21 @@ const PostEditPage = () => {
       }
       case "Game": {
         try {
-          await addDoc(collection(db, "Game"), {
-            title: values.title,
-            author: values.author,
+          await updateDoc(doc(db, "Game",idPost), {
+            title: values.title || dataPostEdit.title,
+            author: values.author || dataPostEdit.author,
             category: values.category,
-            imgURL: imgPost,
-            content: content,
+            imgURL: imgPost || dataPostEdit.imgURL,
+            content: content || dataPostEdit.content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
           });
-          await addDoc(collection(db, "user's post"), {
-            title: values.title,
-            author: values.author,
-            imgURL: imgPost,
+          await updateDoc(doc(db, "user's post",idPost), {
+            title: values.title || dataPostEdit.title,
+            author: values.author || dataPostEdit.author,
             category: values.category,
-            content: content,
+            imgURL: imgPost || dataPostEdit.imgURL,
+            content: content || dataPostEdit.content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
           });
