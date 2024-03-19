@@ -31,6 +31,7 @@ const PostEditPage = () => {
   const category = watch("category");
   const handleEditPost = async (values) => {
     const date = new Date();
+    console.log("True")
     const imgPost = await handleSendImgToFirebase(img);
     console.log(values.category);
     switch (values.category) {
