@@ -16,6 +16,11 @@ export default {
         btnAddPostShadhow: "0 1px 4px 0 rgba(60,64,67,.3)",
         userInfoShadow: "0px 3px 7px 0px rgba(0,0,0,0.5)",
       },
+      screens: {
+        mb: "320px",
+        laptop: "1024px",
+        desktop: "1280px",
+      },
     },
   },
   plugins: [],

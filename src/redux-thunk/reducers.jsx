@@ -8,6 +8,7 @@ import postMainPageSlice from "./Slices/postMainPageSlice";
 import discoverSlice from "./Slices/discoverSlice";
 import detailPageSlice from "./Slices/detailPage";
 import postEditSlice from "./Slices/postEditSlice";
+import filterPostsSlice from "./Slices/filterPostsSlice";
 export const reducer = combineReducers({
   darkMode: darkModeSlice,
   signIn: signInSlice,
@@ -18,4 +19,5 @@ export const reducer = combineReducers({
   discover: discoverSlice,
   detailPage: detailPageSlice,
   editPost: postEditSlice,
+  filterPosts: filterPostsSlice,
 });

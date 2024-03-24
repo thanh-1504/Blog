@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useFormatDate } from "../../hooks/useFormatDate";
 import { useDispatch } from "react-redux";
 import { handleViewedPost } from "../../redux-thunk/handler";
-
 const idPost = [];
 const PostItem = ({ style = "max-w-[210px]", data }) => {
   const navigate = useNavigate();

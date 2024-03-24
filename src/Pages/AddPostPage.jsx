@@ -1,30 +1,23 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import EditorToolbar, { modules, formats } from "../Components/EditorToolbar";
 import { useShowScrollbar } from "../hooks/useShowScrollbar";
 import Header from "../Components/Header";
-import parse from "html-react-parser";
 import { db, handleSendImgToFirebase } from "../firebaseConfig";
 import { useForm } from "react-hook-form";
 import {
   addDoc,
   collection,
   doc,
-  onSnapshot,
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 const AddPostPage = () => {
   useShowScrollbar();
-  const {
-    handleSubmit,
-    register,
-    watch,
-    formState: { isSubmitting, errors },
-  } = useForm();
+  const { handleSubmit, register, watch } = useForm();
   let [content, setContent] = useState("");
   let [img, setImg] = useState("");
   const category = watch("category");
@@ -32,6 +25,14 @@ const AddPostPage = () => {
     const date = new Date();
     if (!category) {
       toast("Please select an article category", {
+        type: "error",
+        pauseOnHover: false,
+        autoClose: 1500,
+      });
+      return;
+    }
+    if (!values.title) {
+      toast("Please enter the post title", {
         type: "error",
         pauseOnHover: false,
         autoClose: 1500,
@@ -52,6 +53,7 @@ const AddPostPage = () => {
             dateCreatedInSeconds: date.getMilliseconds(),
           });
           await setDoc(doc(db, "Cuisine", userPost.id), {
+            id: userPost.id,
             title: values.title,
             author: values.author,
             category: values.category,
@@ -86,6 +88,7 @@ const AddPostPage = () => {
             dateCreatedInSeconds: date.getMilliseconds(),
           });
           await setDoc(doc(db, "Life", userPost.id), {
+            id: userPost.id,
             title: values.title,
             author: values.author,
             category: values.category,
@@ -120,6 +123,7 @@ const AddPostPage = () => {
             dateCreatedInSeconds: date.getMilliseconds(),
           });
           await setDoc(doc(db, "Technology", userPost.id), {
+            id: userPost.id,
             title: values.title,
             author: values.author,
             category: values.category,
@@ -154,6 +158,7 @@ const AddPostPage = () => {
             dateCreatedInSeconds: date.getMilliseconds(),
           });
           await setDoc(doc(db, "Fashion", userPost.id), {
+            id: userPost.id,
             title: values.title,
             author: values.author,
             category: values.category,
@@ -188,6 +193,7 @@ const AddPostPage = () => {
             dateCreatedInSeconds: date.getMilliseconds(),
           });
           await setDoc(doc(db, "Game", userPost.id), {
+            id: userPost.id,
             title: values.title,
             author: values.author,
             category: values.category,

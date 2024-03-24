@@ -25,8 +25,8 @@ const PostsMainPage = () => {
   }, [dispatch]);
   return (
     <div
-      className={`w-[80%] max-h-[500px] overflow-auto transition-all ease-linear max-w-[1108px] duration-300  ${
-        toggleSidebar ? "pl-[33px] " : "pl-0 w-full flex-shrink-0"
+      className={`w-[80%] max-h-[500px] overflow-auto transition-all ease-in-out max-w-[1108px] duration-500 ${
+        toggleSidebar ? "pl-[33px] " : "pl-0 w-full ml-[-50px]"
       }`}
     >
       <p className="inline-block mt-8 mb-6">Tất cả ({data?.length})</p>

@@ -7,17 +7,23 @@ import {
   doc,
   getDoc,
   getDocs,
+  limit,
   onSnapshot,
+  orderBy,
+  query,
+  where,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import Swal from "sweetalert2";
-import { handleGetData } from "./Slices/detailPage";
+import { handleGetData, handleGetDataSamePost } from "./Slices/detailPage";
 import {
   handleGetDataSavedPosts,
   handleGetDataViewedPosts,
 } from "./Slices/userPageSlice";
 import { requestDataFromUserPost } from "./request";
 import { handleGetDataEditPost } from "./Slices/postEditSlice";
+import { handleGetDataFilterInput } from "./Slices/filterPostsSlice";
+import { useNavigate } from "react-router-dom";
 export const handleDeletePost = createAsyncThunk(
   "deletePost",
   ({ idPost, page, idSamePost, samePage }) => {
@@ -167,3 +173,56 @@ export const handleGetDataUserPost = createAsyncThunk(
   }
 );
 
+export const handleGetDataFilterPost = createAsyncThunk(
+  "getDataFilterInput",
+  async (value, { dispatch }) => {
+    console.log(value);
+    const result = [];
+    const cuisineSnapshot = await getDocs(collection(db, "Cuisine"));
+    cuisineSnapshot.forEach((doc) => {
+      if (doc.data().title.includes(value))
+        result.push({ id: doc.id, ...doc.data() });
+    });
+    const lifeSnapshot = await getDocs(collection(db, "Life"));
+    lifeSnapshot.forEach((doc) => {
+      if (doc.data().title.includes(value))
+        result.push({ id: doc.id, ...doc.data() });
+    });
+    const gameSnapshot = await getDocs(collection(db, "Game"));
+    gameSnapshot.forEach((doc) => {
+      if (doc.data().title.includes(value))
+        result.push({ id: doc.id, ...doc.data() });
+    });
+    const fashionSnapshot = await getDocs(collection(db, "Fashion"));
+    fashionSnapshot.forEach((doc) => {
+      if (doc.data().title.includes(value))
+        result.push({ id: doc.id, ...doc.data() });
+    });
+    const techSnapshot = await getDocs(collection(db, "Technology"));
+    techSnapshot.forEach((doc) => {
+      if (doc.data().title.includes(value))
+        result.push({ id: doc.id, ...doc.data() });
+    });
+    dispatch(handleGetDataFilterInput(result));
+  }
+);
+
+export const handleGetSamePost = createAsyncThunk(
+  "getSamePost",
+  async ({ page, idPost }, { dispatch }) => {
+    const data = [];
+    const q = query(
+      collection(db, page),
+      where("category", "==", page),
+      limit(5)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((post) => {
+      data.push({
+        id: post.id,
+        ...post.data(),
+      });
+    });
+    dispatch(handleGetDataSamePost(data.filter((post) => post.id !== idPost)));
+  }
+);

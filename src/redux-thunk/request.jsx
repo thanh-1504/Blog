@@ -1,4 +1,4 @@
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
 export const requestDataFromUserPost = async (idPost) => {
@@ -6,3 +6,7 @@ export const requestDataFromUserPost = async (idPost) => {
   const docSnap = await getDoc(docRef);
   return docSnap.data();
 };
+
+// export const requestDataSamePost = async (category) => {
+//   const query = query
+// }

@@ -25,7 +25,10 @@ function App() {
             element={<PostEditPage></PostEditPage>}
             path="/edit/:idPost"
           ></Route>
-          <Route element={<FilterPage></FilterPage>} path="/filter"></Route>
+          <Route
+            element={<FilterPage></FilterPage>}
+            path="/filter/:titlePost"
+          ></Route>
           <Route
             element={<PostDetailPage></PostDetailPage>}
             path="/:page/:idPost"

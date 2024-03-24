@@ -43,13 +43,22 @@ const SignUpPage = () => {
   });
 
   const handleSignInWithGoogle = async () => {
-    const provider = new GoogleAuthProvider(); // Use 'GoogleAuthProvider' directly
+    const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     try {
-      await signInWithPopup(auth, provider); // Use 'provider' directly here
+      const userInfo = await signInWithPopup(auth, provider);
       setTimeout(() => {
         navigate("/");
       }, 1500);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: userInfo?.user.uid,
+          email: userInfo?.user.email,
+          displayName: userInfo?.user.displayName,
+          photoURL: userInfo?.user.photoURL,
+        })
+      );
     } catch (error) {
       console.log(error.message);
     }

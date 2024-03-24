@@ -5,20 +5,26 @@ import Header from "../Components/Header";
 import { useParams } from "react-router-dom";
 import { useFormatDate } from "../hooks/useFormatDate";
 import { useDispatch, useSelector } from "react-redux";
-import { handleGetDataDetailPage } from "../redux-thunk/handler";
+import {
+  handleGetDataDetailPage,
+  handleGetSamePost,
+} from "../redux-thunk/handler";
 import parse from "html-react-parser";
 import { deleteDoc, doc, setDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 const PostDetail = () => {
+  window.scrollTo(0, 0);
   const { idPost, page } = useParams();
-  const { data } = useSelector((state) => state.detailPage);
+  const { data, dataSamePost } = useSelector((state) => state.detailPage);
   const [savedPost, setSavedPost] = useState(false);
   const { day, month, year } = useFormatDate(data?.dateCreated);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(handleGetDataDetailPage({ idPost, page }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, idPost]);
+  }, [dispatch, idPost, page]);
+  useEffect(() => {
+    dispatch(handleGetSamePost({ page, idPost }));
+  }, [dispatch, page, idPost]);
   if (!data) return;
   const handleSavedPost = async () => {
     let savedPosts = JSON.parse(localStorage.getItem("savedPosts")) || [];
@@ -74,20 +80,10 @@ const PostDetail = () => {
           <div className="w-full h-auto px-10 py-10 bg-white shadow-2xl rounded-xl dark:bg-themeDark">
             <h2 className="mb-3 text-4xl font-bold">Bài viết liên quan</h2>
             <div className="flex items-center">
-              {Array(4)
-                .fill(null)
-                .map((item) => {
-                  return (
-                    <>
-                      <PostItem style="max-w-[400px]"></PostItem>
-                    </>
-                  );
+              {dataSamePost.length > 0 &&
+                dataSamePost.map((post) => {
+                  return <PostItem key={post.id} data={post}></PostItem>;
                 })}
-            </div>
-            <div className="w-full mt-6 text-center ">
-              <button className=" bg-[#f57c00] px-5 py-3 text-white font-bold rounded-lg">
-                Xem tất cả
-              </button>
             </div>
           </div>
         </div>

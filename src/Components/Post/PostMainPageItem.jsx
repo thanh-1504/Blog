@@ -1,39 +1,16 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { handleDeletePost } from "../../redux-thunk/handler";
-import { useDispatch, useSelector } from "react-redux";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
+import { useDispatch } from "react-redux";
 import { useFormatDate } from "../../hooks/useFormatDate";
 const PostMainPageItem = ({ data }) => {
-  const {
-    imgURL,
-    title,
-    author,
-    dateCreated,
-    id,
-    category,
-    dateCreatedInSeconds,
-  } = data;
+  const { imgURL, title, author, dateCreated, id, category } = data;
   const { day, month } = useFormatDate(dateCreated);
   const userInfo = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const q = query(collection(db, category), where("category", "==", category));
-  // const [idSamePage, setIdSamePage] = useState("");
-  // onSnapshot(q, (snapshot) => {
-  //   let result = [];
-  //   snapshot.forEach((doc) => {
-  //     result.push({ id: doc.id, ...doc.data() });
-  //   });
-  //   const item = result.filter(
-  //     (item) => item.dateCreatedInSeconds === dateCreatedInSeconds
-  //   );
-  //   setIdSamePage(item[0]?.id);
-  // });
-
   return (
     <div className="w-full max-w-[930px] h-full max-h-[96px] border border-[#dbe2e5] mb-3 rounded-[4px] flex items-center px-4 cursor-pointer hover:shadow-md transition-all justify-between">
       <div className="flex items-center">
@@ -43,9 +20,7 @@ const PostMainPageItem = ({ data }) => {
           className="w-[70px] h-[70px] object-cover mr-4 rounded-sm"
         />
         <div>
-          <p className="mb-2 truncate max-w-96">
-            {title || "Không có tiêu đề"}
-          </p>
+          <p className="mb-2 truncate max-w-96">{title}</p>
           <p>
             Đã xuất bản - {day} thg {month}
           </p>
