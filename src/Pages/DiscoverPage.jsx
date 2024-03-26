@@ -12,7 +12,7 @@ const DiscoverPage = () => {
   return (
     <div>
       <div className="pt-[80px]">
-        <div className="flex w-full h-full">
+        <div className="lg:flex w-full h-full">
           <Header></Header>
           <Sidebar></Sidebar>
           <DiscoverPageContext

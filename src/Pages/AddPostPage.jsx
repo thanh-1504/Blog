@@ -231,7 +231,7 @@ const AddPostPage = () => {
       <Header hasSearchInput={false} hasSidebar={false}></Header>
       <form
         onSubmit={handleSubmit(handleSubmitForm)}
-        className="pt-[70px] fixed top-5 left-10 z-50 w-full"
+        className="pt-[70px] fixed top-5 lg:left-10 mb:left-3 z-50 w-full"
       >
         <div className="flex items-center">
           <input
@@ -242,17 +242,17 @@ const AddPostPage = () => {
           />
           <button
             type="submit"
-            className="bg-[#f57c00] text-white px-2 flex items-center ml-10 py-2 rounded-sm"
+            className="bg-[#f57c00] text-white lg:px-2 mb:p-[13px] flex items-center lg:ml-10 mb:ml-2 py-2 rounded-sm"
           >
             <svg
-              className="w-5 h-5 mr-2"
+              className="w-5 h-5 lg:mr-2"
               fill="#fff"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
             >
               <path d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z" />
             </svg>
-            Xuất bản
+            {window.innerWidth > 440 && "Xuất bản"}
           </button>
         </div>
         <EditorToolbar toolbarId={"t1"} />
@@ -265,52 +265,55 @@ const AddPostPage = () => {
             modules={modules("t1")}
             formats={formats}
           ></ReactQuill>
-          <div className=" bg-white shadow-2xl ml-10 w-[25%] pl-5 text-settingPostText">
-            <span className="">Cài đặt bài đăng</span>
-            <form>
-              <label htmlFor="name-author" className="block mt-2 mb-1">
-                Tên tác giả
-              </label>
-              <input
-                {...register("author")}
-                type="text"
-                placeholder="Nhập tên tác giả"
-                className="outline-none border-transparent border-b border-b-orange-500 mb-2 w-[80%]"
-                id="name-author"
-              />
-              <label htmlFor="category" className="block mb-1">
-                Thể loại bài viết
-              </label>
-              <div className="custom-select">
-                <select className="select--category" {...register("category")}>
-                  <option value="">Chọn thể loại</option>
-                  <option value="Cuisine">Cuisine</option>
-                  <option value="Life">Life</option>
-                  <option value="Technology">Technology</option>
-                  <option value="Fashion">Fashion</option>
-                  <option value="Game">Game</option>
-                </select>
-              </div>
-              <label htmlFor="imgPost" className="block mt-2 mb-1">
-                Ảnh bài viết
-              </label>
-              <div className="file-upload w-[80%]">
-                <img
-                  src={`${
-                    img
-                      ? URL.createObjectURL(img)
-                      : "https://plus.unsplash.com/premium_photo-1677402408071-232d1c3c3787?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  } `}
-                  className="w-full h-[100px] object-cover"
-                  alt="upload"
-                />
+       {window.innerWidth > 440 &&
+   <div className=" bg-white shadow-2xl ml-10 w-[25%] pl-5 text-settingPostText">
+   <span className="">Cài đặt bài đăng</span>
+   <form>
+     <label htmlFor="name-author" className="block mt-2 mb-1">
+       Tên tác giả
+     </label>
+     <input
+       {...register("author")}
+       type="text"
+       placeholder="Nhập tên tác giả"
+       className="outline-none border-transparent border-b border-b-orange-500 mb-2 w-[80%]"
+       id="name-author"
+     />
+     <label htmlFor="category" className="block mb-1">
+       Thể loại bài viết
+     </label>
+     <div className="custom-select">
+       <select className="select--category" {...register("category")}>
+         <option value="">Chọn thể loại</option>
+         <option value="Cuisine">Cuisine</option>
+         <option value="Life">Life</option>
+         <option value="Technology">Technology</option>
+         <option value="Fashion">Fashion</option>
+         <option value="Game">Game</option>
+       </select>
+     </div>
+     <label htmlFor="imgPost" className="block mt-2 mb-1">
+       Ảnh bài viết
+     </label>
+     <div className="file-upload w-[80%]">
+       <img
+         src={`${
+           img
+             ? URL.createObjectURL(img)
+             : "https://plus.unsplash.com/premium_photo-1677402408071-232d1c3c3787?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+         } `}
+         className="w-full h-[100px] object-cover"
+         alt="upload"
+       />
 
-                <h3>Click box to upload</h3>
-                <p>Maximun file size 10mb</p>
-                <input onChange={handleSelectedImg} type="file" />
-              </div>
-            </form>
-          </div>
+       <h3>Click box to upload</h3>
+       <p>Maximun file size 10mb</p>
+       <input onChange={handleSelectedImg} type="file" />
+     </div>
+   </form>
+ </div>
+
+       }
         </div>
       </form>
       <ToastContainer></ToastContainer>

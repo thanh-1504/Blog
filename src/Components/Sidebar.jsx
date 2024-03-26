@@ -9,13 +9,13 @@ const Sidebar = () => {
   const navigae = useNavigate();
   return (
     <div
-      className={`mb:shadow-2xl lg:shadow h-screen transition-all ease duration-500 mb:w-[60%] mb:fixed mb:top-16 mb:left-0 lg:relative lg:w-[20%] lg:top-0 bg-white z-50 dark:bg-themeDark ${
+      className={`mb:shadow-2xl lg:shadow h-screen transition-all ease duration-500 mb:w-[60%] mb:fixed mb:top-16 mb:left-0 lg:relative lg:w-[20%] lg:top-0 bg-white z-50 dark:bg-themeDark 2xl:w-[15%] ${
         toggleSidebar ? "translate-x-0 " : "-translate-x-full "
       }`}
     >
       <div
         onClick={() => navigae("/add-post")}
-        className="flex items-center mt-10 ml-10 shadow-btnAddPostShadhow w-[170px] py-2 rounded-3xl cursor-pointer btn__addPost"
+        className="flex items-center mt-10 ml-auto mr-auto shadow-btnAddPostShadhow w-[170px] py-2 rounded-3xl cursor-pointer btn__addPost"
       >
         <svg
           className="w-5 h-5 mx-2 "

@@ -27,13 +27,12 @@ const DiscoverPageContext = ({ toggleSidebar }) => {
   }, [dispatch]);
   return (
     <div
-      className={`w-[80%] max-w-[1108px] overflow-auto max-h-[500px] transition-all ease-linear duration-300 ${
-        toggleSidebar ? "pl-[33px]" : "pl-2 w-full flex-shrink-0"
+      className={`lg:w-[80%] max-w-[1108px] overflow-auto max-h-[500px] transition-all ease-linear duration-300 ${
+        toggleSidebar ? "lg:pl-[33px]" : "lg:pl-2 lg:w-full flex-shrink-0"
       }  `}
     >
-      <div className="flex items-center mt-10 ml-1 justify-between max-w-[970px]">
-        <Category style="">{category}</Category>
-        <div className="mr-[80px] ">
+      <div className="lg:flex lg:items-center mb:block lg:mt-10 mb:mt-5 ml-1 justify-between max-w-[970px]">
+        <div className="lg:mr-[80px] mb:ml-5 lg:ml-0">
           <label className="mr-2 select-none" htmlFor="category">
             Phân loại bài viết:
           </label>
@@ -49,9 +48,10 @@ const DiscoverPageContext = ({ toggleSidebar }) => {
             <option value="Fashion">Fashion</option>
             <option value="Game">Game</option>
           </select>
+        <Category style="mb:block">{category}</Category>
         </div>
       </div>
-      <div className="flex flex-wrap items-center">
+      <div className="lg:flex lg:flex-wrap lg:flex-row mb:flex mb:flex-col mb:items-center">
         {data.length > 0 &&
           data.map((post) => {
             return <PostItem key={post.id} data={post}></PostItem>;

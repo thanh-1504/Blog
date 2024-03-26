@@ -11,7 +11,7 @@ const MainPage = () => {
   return (
     <>
       <Header></Header>
-      <div className="flex pt-[80px] w-full h-full justify-center">
+      <div className="flex pt-[80px] w-full h-full  ">
         <Sidebar></Sidebar>
         <PostsMainPage></PostsMainPage>
       </div>

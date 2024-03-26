@@ -90,7 +90,7 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
             />
           </div>
         )}
-        <div className="flex items-center select-none">
+        <div className="flex items-center select-none mr-10">
           {!localStorage.getItem("user") && (
             <>
               <span
