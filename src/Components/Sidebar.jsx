@@ -9,7 +9,7 @@ const Sidebar = () => {
   const navigae = useNavigate();
   return (
     <div
-      className={`w-[20%] shadow h-screen transition-all  ease duration-500 ${
+      className={`mb:shadow-2xl lg:shadow h-screen transition-all ease duration-500 mb:w-[60%] mb:fixed mb:top-16 mb:left-0 lg:relative lg:w-[20%] lg:top-0 bg-white z-50 dark:bg-themeDark ${
         toggleSidebar ? "translate-x-0 " : "-translate-x-full "
       }`}
     >

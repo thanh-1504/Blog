@@ -9,6 +9,7 @@ import { handleCheckedInputDarkMode } from "../redux-thunk/Slices/darkModeSlice"
 import { handleShowUserSetting } from "../redux-thunk/Slices/userSettingSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebaseConfig";
+import { handleShowInputSearchOnMbDevice } from "../redux-thunk/Slices/headerSlice";
 const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,6 +17,9 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
   const { handleToggleSidebar } = useSidebarContext();
   const { switchToSunIcon } = useSelector((state) => state.darkMode);
   const { showUserSetting } = useSelector((state) => state.userSetting);
+  const { showInputSearchOnMbDevice } = useSelector(
+    (state) => state.headerSlice
+  );
   const userInfo = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     if (
@@ -43,8 +47,8 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
       }`}
     >
       <div
-        className={`flex items-center h-full ${
-          !hasSearchInput && !hasSidebar ? "justify-between" : "justify-around"
+        className={`flex items-center h-full justify-between ${
+          !hasSearchInput && !hasSidebar && "justify-between"
         }`}
       >
         <div className="flex items-center ">
@@ -86,27 +90,6 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
             />
           </div>
         )}
-        {window.innerWidth < 440 && hasSearchInput && (
-          <div className="flex items-center">
-            <svg
-              className="w-full mx-5 max-w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-            >
-              <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
-            </svg>
-            {/* <input
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  navigate(`/filter/${e.target.value.trim()}`);
-                }
-              }}
-              placeholder="Tìm kiếm bài đăng"
-              className="outline-none bg-[#eceff1] w-full"
-              type="text"
-            /> */}
-          </div>
-        )}
         <div className="flex items-center select-none">
           {!localStorage.getItem("user") && (
             <>
@@ -131,7 +114,7 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
                 onClick={() =>
                   dispatch(handleShowUserSetting(!showUserSetting))
                 }
-                className="ml-5 rounded-full cursor-pointer w-9 h-9"
+                className="ml-5 rounded-full cursor-pointer w-9 h-9 mr-4 "
                 src={`${
                   userInfo?.photoURL ||
                   "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1709683200&semt=ais"

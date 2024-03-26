@@ -18,8 +18,6 @@ export default {
       },
       screens: {
         mb: "320px",
-        laptop: "1024px",
-        desktop: "1280px",
       },
     },
   },

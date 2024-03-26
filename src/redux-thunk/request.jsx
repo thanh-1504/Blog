@@ -6,7 +6,3 @@ export const requestDataFromUserPost = async (idPost) => {
   const docSnap = await getDoc(docRef);
   return docSnap.data();
 };
-
-// export const requestDataSamePost = async (category) => {
-//   const query = query
-// }

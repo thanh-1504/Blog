@@ -151,9 +151,7 @@ body {
 
 .select--category {
   appearance: none;
-  /*  safari  */
   -webkit-appearance: none;
-  /*  other styles for aesthetics */
   padding: 5px 5px 5px 5px;
   width: 100%;
   font-size: 1.15rem;
@@ -194,3 +192,6 @@ body {
   margin: 30px auto 30px auto;
 }
 
+.post--management {
+  opacity: 1;
+}

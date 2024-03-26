@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import Sidebar from "../Components/Sidebar";
@@ -6,7 +7,7 @@ import { useShowScrollbar } from "../hooks/useShowScrollbar";
 import Header from "../Components/Header";
 
 const MainPage = () => {
-  useShowScrollbar();
+  window.innerWidth > 440 ? useShowScrollbar() : null;
   return (
     <>
       <Header></Header>
