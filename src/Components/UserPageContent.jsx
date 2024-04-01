@@ -44,7 +44,7 @@ const UserPageContent = ({ toggleSidebar }) => {
     >
       <div className="mt-8 mb-10 ml-8">
         <img
-          src="https://images.unsplash.com/photo-1594536717222-b26df7f2f23b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGdpcmwlMjBzZXh8ZW58MHx8MHx8fDA%3D"
+          src="https://images.unsplash.com/photo-1711843250811-a7d0bb485a42?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="userImage"
           className="w-[120px] h-[120px] rounded-full object-cover inline-block mr-2"
         />

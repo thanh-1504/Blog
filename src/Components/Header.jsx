@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import BlogLogo from "./BlogLogo";
 import { useSidebarContext } from "../Contexts/SidebarContext";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { handleShowInputSearchOnMbDevice } from "../redux-thunk/Slices/headerSlice";
 const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
+  const headerRef = useRef()
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const html = document.documentElement;
@@ -32,7 +33,13 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
       document.documentElement.classList.remove("dark");
     }
   }, []);
-
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY >= 65) headerRef.current.classList.add('show__header')
+      else headerRef.current.classList.remove('show__header')
+      
+    })
+  },[])
   const handleSignOut = () => {
     signOut(auth);
     localStorage.removeItem("user");
@@ -42,7 +49,8 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
   };
   return (
     <header
-      className={`w-full h-full max-h-[70px] fixed top-0 left-0 z-[999] border-b border-b-[#ccc] bg-white dark:bg-themeDark ${
+    ref={headerRef}
+      className={`w-full h-full max-h-[70px] fixed top-0 left-0 z-[999] border-b transition-all duration-150 border-b-[#ccc] bg-white dark:bg-themeDark ${
         !hasSearchInput && !hasSidebar && "px-10"
       }`}
     >

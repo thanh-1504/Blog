@@ -30,6 +30,9 @@ const PostsMainPage = () => {
       }`}
     >
       <p className={`inline-block mt-8 mb-6 2xl:relative 2xl:right-[420px]`}>Tất cả ({data?.length})</p>
+      {/* <img className="w-[100px] h-[100px] mt-10" src="https://www.blogger.com/img/pencilpotscissorsdesk.png" alt="empty post" />
+      <p>No posts</p>
+      <p className="text-sm">Posts you create will appear here</p> */}
       {data &&
         data.map((dataItem) => {
           return (

@@ -256,7 +256,7 @@ const AddPostPage = () => {
           </button>
         </div>
         <EditorToolbar toolbarId={"t1"} />
-        <div className="dark:bg-themeDark h-full mt-[60px]  flex">
+        <div className="dark:bg-themeDark h-full mt-[60px] flex ">
           <ReactQuill
             placeholder="Nội dung bài viết"
             onChange={setContent}
@@ -266,7 +266,7 @@ const AddPostPage = () => {
             formats={formats}
           ></ReactQuill>
        {window.innerWidth > 440 &&
-   <div className=" bg-white shadow-2xl ml-10 w-[25%] pl-5 text-settingPostText">
+   <div className=" bg-white shadow-2xl ml-10 w-[25%] pl-5 text-settingPostText 2xl:w-[15%] 2xl:pt-5 2xl:ml-auto">
    <span className="">Cài đặt bài đăng</span>
    <form>
      <label htmlFor="name-author" className="block mt-2 mb-1">

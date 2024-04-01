@@ -195,3 +195,14 @@ body {
 .post--management {
   opacity: 1;
 }
+
+.show__header {
+  transform: translateY(-100%);
+}
+
+@media only screen and (min-width: 1500px) {
+  .quill {
+    width: 90%;
+    margin-right: 50px;
+  };
+}
