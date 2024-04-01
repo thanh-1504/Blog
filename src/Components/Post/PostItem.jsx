@@ -20,10 +20,10 @@ const PostItem = ({ style = "lg:max-w-[210px]", data }) => {
           dispatch(handleViewedPost({ data, page: window.location.href }));
         navigate(`/${data?.category}/${data?.id}`);
       }}
-      className={`cursor-pointer mx-2 my-5 mb:max-w-none  ${style}`}
+      className={`cursor-pointer mx-2 my-5 mb:max-w-none ${style}`}
     >
       <img
-        className="w-full h-full object-cover lg:max-h-[118px] mb:max-h-[180px] rounded-lg hover:shadow-lg transition-all mb-3"
+        className="w-full h-full object-cover lg:max-h-[150px] mb:max-h-[180px] rounded-lg hover:shadow-lg transition-all mb-3"
         src={`${data?.imgURL}`}
         alt="PostImage"
       />

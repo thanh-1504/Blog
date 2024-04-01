@@ -40,7 +40,7 @@ const SignInPage = () => {
     handleSubmit,
     register,
     reset,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onSubmit",
@@ -50,6 +50,7 @@ const SignInPage = () => {
     provider.setCustomParameters({ prompt: "select_account" });
     try {
       const userInfo = await signInWithPopup(auth, provider);
+      console.log(userInfo);
       setTimeout(() => {
         toast("Logged in successfully", {
           pauseOnHover: false,

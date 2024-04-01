@@ -3,7 +3,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { handleDeletePost } from "../../redux-thunk/handler";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useFormatDate } from "../../hooks/useFormatDate";
 const PostMainPageItem = ({ data }) => {
   const { imgURL, title, author, dateCreated, id, category } = data;
@@ -43,9 +43,9 @@ const PostMainPageItem = ({ data }) => {
                 </span>
                 <ul className="w-[168px] shadow-xl absolute right-[-0.8rem] bg-white opacity-0 transition-all">
                   <li className="">
-                    <span className="text-center block p-2 hover:bg-gray-200">
+                    <span className="block p-2 text-center hover:bg-gray-200">
                       <svg
-                        className="w-3 h-3 inline mr-2"
+                        className="inline w-3 h-3 mr-2"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 576 512"
                       >
@@ -55,9 +55,9 @@ const PostMainPageItem = ({ data }) => {
                     </span>
                   </li>
                   <li>
-                    <span className="block text-center p-2 hover:bg-gray-200">
+                    <span className="block p-2 text-center hover:bg-gray-200">
                       <svg
-                        className="w-3 h-3 inline mr-2"
+                        className="inline w-3 h-3 mr-2"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 448 512"
                       >
@@ -67,9 +67,9 @@ const PostMainPageItem = ({ data }) => {
                     </span>
                   </li>
                   <li>
-                    <span className="block text-center p-2 hover:bg-gray-200">
+                    <span className="block p-2 text-center hover:bg-gray-200">
                       <svg
-                        className="w-3 h-3 inline mr-2"
+                        className="inline w-3 h-3 mr-2"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
                       >
@@ -115,7 +115,6 @@ const PostMainPageItem = ({ data }) => {
                 handleDeletePost({
                   idPost: id,
                   page: `user's post`,
-                  idSamePost: id,
                   samePage: category,
                 })
               );

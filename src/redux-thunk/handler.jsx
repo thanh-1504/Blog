@@ -11,6 +11,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  setDoc,
   where,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
@@ -26,7 +27,7 @@ import { handleGetDataFilterInput } from "./Slices/filterPostsSlice";
 import { useNavigate } from "react-router-dom";
 export const handleDeletePost = createAsyncThunk(
   "deletePost",
-  ({ idPost, page, idSamePost, samePage }) => {
+  ({ idPost, page, samePage }) => {
     Swal.fire({
       title: "Do you want to delete this post?",
       showCancelButton: true,
@@ -35,7 +36,7 @@ export const handleDeletePost = createAsyncThunk(
       if (result.isConfirmed) {
         Swal.fire("Post deleted successfully", "", "success");
         deleteDoc(doc(db, page, idPost));
-        deleteDoc(doc(db, samePage, idSamePost));
+        deleteDoc(doc(db, samePage, idPost));
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
       }
@@ -131,13 +132,50 @@ export const handleGetDataDetailPage = createAsyncThunk(
 export const handleViewedPost = createAsyncThunk(
   "handleViewedPost",
   async ({ data, page = "" }) => {
-    if (!page.includes("/user")) await addDoc(collection(db, "Viewed"), data);
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+    const viewed = JSON.parse(localStorage.getItem("viewed")) || [];
+    const userIndex = viewed.findIndex((user) => user.userId === userId);
+    if (userIndex === -1) viewed.push({ userId, idPosts: [data.id] });
+    else {
+      if (!viewed[userIndex].idPosts.includes(data.id))
+        viewed[userIndex].idPosts.push(data.id);
+    }
+    if (!page.includes("/user")) {
+      await setDoc(doc(db, "Viewed", data.id), data);
+
+      localStorage.setItem("viewed", JSON.stringify(viewed));
+    }
+  }
+);
+
+export const handleSavedPost = createAsyncThunk(
+  "handleSavedPost",
+  ({ data }) => {
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+    const savedPost = JSON.parse(localStorage.getItem("savedPost")) || [];
+    const userIndex = savedPost.findIndex((user) => user.userId === userId);
+    setDoc(doc(db, "SavedPosts", data.id), data);
+    if (userIndex === -1) {
+      savedPost.push({ userId, idPostsSaved: [data.id] });
+    } else {
+      if (!savedPost[userIndex].idPostsSaved.includes(data.id))
+        savedPost[userIndex].idPostsSaved.push(data.id);
+      else {
+        savedPost[userIndex].idPostsSaved = savedPost[
+          userIndex
+        ].idPostsSaved.filter((id) => id !== data.id);
+        deleteDoc(doc(db, "SavedPosts", data.id));
+      }
+    }
+    localStorage.setItem("savedPost", JSON.stringify(savedPost));
   }
 );
 
 export const handleGetViewedPost = createAsyncThunk(
   "getViewedPost",
   async (_, { dispatch }) => {
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+    const viewed = JSON.parse(localStorage.getItem("viewed")) || [];
     const dataViewedPost = [];
     onSnapshot(collection(db, "Viewed"), (snapshot) => {
       snapshot.forEach((post) => {
@@ -145,7 +183,13 @@ export const handleGetViewedPost = createAsyncThunk(
           ...post.data(),
         });
       });
-      dispatch(handleGetDataViewedPosts(dataViewedPost));
+      const listViewedPost = viewed.filter((user) => user.userId === userId)[0]
+        .idPosts;
+      dispatch(
+        handleGetDataViewedPosts(
+          dataViewedPost.filter((post) => listViewedPost.includes(post.id))
+        )
+      );
     });
   }
 );
@@ -153,14 +197,23 @@ export const handleGetViewedPost = createAsyncThunk(
 export const handleGetSavedPosts = createAsyncThunk(
   "getSavedPosts",
   async (_, { dispatch }) => {
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+    const savedPosts = JSON.parse(localStorage.getItem("savedPost")) || [];
     const dataSavedPosts = [];
-    onSnapshot(collection(db, "Saved"), (snapshot) => {
+    onSnapshot(collection(db, "SavedPosts"), (snapshot) => {
       snapshot.forEach((post) => {
         dataSavedPosts.push({
           ...post.data(),
         });
       });
-      dispatch(handleGetDataSavedPosts(dataSavedPosts));
+      const listSavedPosts = savedPosts.filter(
+        (user) => user.userId === userId
+      )[0].idPostsSaved;
+      dispatch(
+        handleGetDataSavedPosts(
+          dataSavedPosts.filter((post) => listSavedPosts.includes(post.id))
+        )
+      );
     });
   }
 );

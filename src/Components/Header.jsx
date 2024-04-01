@@ -9,7 +9,6 @@ import { handleCheckedInputDarkMode } from "../redux-thunk/Slices/darkModeSlice"
 import { handleShowUserSetting } from "../redux-thunk/Slices/userSettingSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebaseConfig";
-import { handleShowInputSearchOnMbDevice } from "../redux-thunk/Slices/headerSlice";
 const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,9 +16,6 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
   const { handleToggleSidebar } = useSidebarContext();
   const { switchToSunIcon } = useSelector((state) => state.darkMode);
   const { showUserSetting } = useSelector((state) => state.userSetting);
-  const { showInputSearchOnMbDevice } = useSelector(
-    (state) => state.headerSlice
-  );
   const userInfo = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     if (
@@ -32,7 +28,6 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
       document.documentElement.classList.remove("dark");
     }
   }, []);
-
   const handleSignOut = () => {
     signOut(auth);
     localStorage.removeItem("user");
@@ -43,11 +38,11 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
   return (
     <header
       className={`w-full h-full max-h-[70px] fixed top-0 left-0 z-[999] border-b border-b-[#ccc] bg-white dark:bg-themeDark ${
-        !hasSearchInput && !hasSidebar && "px-10"
+        !hasSearchInput && !hasSidebar && "lg:px-10"
       }`}
     >
       <div
-        className={`flex items-center h-full justify-between ${
+        className={`flex items-center h-full justify-between mb:px-5 lg:px-0 ${
           !hasSearchInput && !hasSidebar && "justify-between"
         }`}
       >
@@ -90,7 +85,7 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
             />
           </div>
         )}
-        <div className="flex items-center select-none mr-10">
+        <div className="flex items-center select-none lg:mr-10">
           {!localStorage.getItem("user") && (
             <>
               <span
@@ -114,7 +109,7 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
                 onClick={() =>
                   dispatch(handleShowUserSetting(!showUserSetting))
                 }
-                className="ml-5 rounded-full cursor-pointer w-9 h-9 mr-4 "
+                className="ml-5 rounded-full cursor-pointer w-9 h-9 lg:mr-4 "
                 src={`${
                   userInfo?.photoURL ||
                   "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1709683200&semt=ais"

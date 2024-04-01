@@ -38,17 +38,17 @@ const UserPageContent = ({ toggleSidebar }) => {
   }, []);
   return (
     <div
-      className={`w-[80%] max-w-[1108px] transition-all ease-linear duration-300 max-h-[500px] overflow-auto ${
-        toggleSidebar ? "pl-5" : "pl-2 w-full flex-shrink-0"
+      className={`lg:w-[80%] mb:pl-2 lg:pl-0 max-w-[1108px] transition-all ease-linear duration-300 max-h-[500px] overflow-auto ${
+        toggleSidebar ? "lg:pl-5" : "lg:pl-2 w-full "
       }`}
     >
-      <div className="mt-8 mb-10 ml-8">
+      <div className="mt-8 mb-10 lg:ml-8">
         <img
           src="https://images.unsplash.com/photo-1594536717222-b26df7f2f23b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGdpcmwlMjBzZXh8ZW58MHx8MHx8fDA%3D"
           alt="userImage"
           className="w-[120px] h-[120px] rounded-full object-cover inline-block mr-2"
         />
-        <span className="text-4xl font-bold"> Nhật Thành</span>
+        <span className="text-4xl font-bold">Nhật Thành</span>
       </div>
       <div className="flex items-center">
         <div onClick={() => dispatch(handleShowPostSaved(false))}>
@@ -62,9 +62,9 @@ const UserPageContent = ({ toggleSidebar }) => {
           </svg>
           <span
             ref={pushRefs}
-            className="text-lg font-semibold blog-seen cursor-pointer select-none"
+            className="lg:text-lg font-semibold blog-seen cursor-pointer select-none"
           >
-            Bài Blog đã xem
+            Viewed posts
           </span>
         </div>
         <div className="ml-10">
@@ -78,14 +78,14 @@ const UserPageContent = ({ toggleSidebar }) => {
           <span
             onClick={() => dispatch(handleShowPostSaved(true))}
             ref={pushRefs}
-            className="text-lg font-semibold cursor-pointer select-none"
+            className="lg:text-lg font-semibold cursor-pointer select-none"
           >
-            Bài Blog đã lưu
+            Saved posts
           </span>
         </div>
       </div>
       {!showPostSaved && (
-        <div className="flex flex-wrap items-center">
+        <div className="lg:flex lg:flex-wrap lg:items-center mb:grid mb:grid-cols-2">
           {dataViewedPost.length > 0 &&
             dataViewedPost.map((post) => {
               return <PostItem key={post.id} data={post}></PostItem>;
@@ -93,7 +93,7 @@ const UserPageContent = ({ toggleSidebar }) => {
         </div>
       )}
       {showPostSaved && (
-        <div className="flex flex-wrap items-center">
+        <div className="lg:flex lg:flex-wrap lg:items-center mb:grid mb:grid-cols-2">
           {dataSavedPosts.length > 0 &&
             dataSavedPosts.map((post) => {
               return <PostItem key={post.id} data={post}></PostItem>;
