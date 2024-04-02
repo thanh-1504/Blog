@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import PostItem from "./Post/PostItem";
 import Category from "./Category";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,8 +27,8 @@ const DiscoverPageContext = ({ toggleSidebar }) => {
   }, [dispatch]);
   return (
     <div
-      className={`lg:w-[80%] max-w-[1108px] overflow-auto max-h-[500px] transition-all ease-linear duration-300 ${
-        toggleSidebar ? "lg:pl-[33px]" : "lg:pl-2 lg:w-full flex-shrink-0"
+      className={`w-full overflow-auto transition-all ease-linear duration-300 lg:ml-8 2xl:ml-6 ${
+        toggleSidebar ? "" : " lg:w-full"
       }  `}
     >
       <div className="lg:flex lg:items-center mb:block lg:mt-10 mb:mt-5 ml-1 justify-between max-w-[970px]">
@@ -51,7 +51,7 @@ const DiscoverPageContext = ({ toggleSidebar }) => {
           <Category style="mb:block">{category}</Category>
         </div>
       </div>
-      <div className="lg:flex lg:flex-wrap lg:flex-row mb:flex mb:flex-col ">
+      <div className="mb:flex mb:flex-col lg:grid lg:grid-cols-4 2xl:place-items-center 2xl:gap-y-0">
         {data.length > 0 &&
           data.map((post) => {
             return <PostItem key={post.id} data={post}></PostItem>;

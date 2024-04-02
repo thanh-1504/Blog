@@ -32,11 +32,7 @@ const PostsMainPage = () => {
         if (!e.currentTarget.matches("sidebar") && window.innerWidth <= 440)
           setToggleSidebar(true);
       }}
-      className={`lg:w-[80%] h-screen lg:max-h-[500px] lg:overflow-auto lg:px-0 lg:max-w-[1108px] 2xl:w-full 2xl:max-w-none 2xl:flex 2xl:flex-col 2xl:items-center mb:w-full mb:px-5 transition-all ease-in-out duration-500 ${
-        toggleSidebar
-          ? "lg:pl-[33px] 2xl:pl-0 "
-          : "lg:pl-0 lg:w-full lg:ml-[-50px] 2xl:pr-[10%]"
-      }`}
+      className={` h-screen lg:overflow-auto lg:px-0 2xl:w-full 2xl:max-w-none 2xl:flex 2xl:flex-col 2xl:items-center mb:w-full mb:px-5 transition-all ease-in-out duration-500 flex flex-col  items-center `}
     >
       <p className={`inline-block mt-8 mb-6 2xl:relative 2xl:right-[420px]`}>
         Tất cả ({data?.length})

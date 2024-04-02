@@ -21,7 +21,7 @@ const PostMainPageItem = ({ data }) => {
         />
         <div>
           <div className="flex">
-            <p className="mb-2 mb:line-clamp-2 lg:line-clamp-1 lg:max-w-96 ">
+            <p className="mb-2 mb:line-clamp-2 lg:line-clamp-1 lg:max-w-96 mb:min-w-[172px]">
               {title}
             </p>
             {window.innerWidth <= 440 && (

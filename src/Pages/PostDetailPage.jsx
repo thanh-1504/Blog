@@ -99,7 +99,7 @@ const PostDetail = () => {
             <h2 className="mb-3 font-bold lg:text-4xl mb:text-2xl mb:ml-2 lg:ml-0">
               Bài viết liên quan
             </h2>
-            <div className="lg:grid lg:grid-cols-4 mb:flex mb:flex-col">
+            <div className="2xl:flex 2xl:flex-row lg:grid lg:grid-cols-4 mb:flex mb:flex-col">
               {dataSamePost.length > 0 &&
                 dataSamePost.map((post) => {
                   return (

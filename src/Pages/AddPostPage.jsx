@@ -258,7 +258,7 @@ const AddPostPage = () => {
             {...register("title")}
             placeholder="Tiêu đề bài viết"
             type="text"
-            className="w-[80%]  outline-none  border-b-orange-300 border-b-2 focus:border-b-orange-400 transition-all dark:bg-themeDark"
+            className="w-[80%] outline-none  border-b-orange-300 border-b-2 focus:border-b-orange-400 transition-all dark:bg-themeDark"
           />
           <button
             type="submit"
@@ -374,7 +374,7 @@ const AddPostPage = () => {
               formats={formats}
             ></ReactQuill>
             {window.innerWidth > 440 && (
-              <div className=" bg-white shadow-2xl ml-10 w-[25%] pl-5 text-settingPostText">
+              <div className=" bg-white shadow-2xl ml-10 w-[25%] pl-5 text-settingPostText 2xl:pt-5">
                 <span className="">Cài đặt bài đăng</span>
                 <form>
                   <label htmlFor="name-author" className="block mt-2 mb-1">

@@ -38,17 +38,17 @@ const UserPageContent = ({ toggleSidebar }) => {
   }, []);
   return (
     <div
-      className={`lg:w-[80%] lg:pl-0 max-w-[1108px] transition-all ease-linear duration-300 max-h-[500px] overflow-auto ${
-        toggleSidebar ? "lg:pl-5" : "lg:pl-2 w-full "
+      className={`2xl:w-full w-full lg:pl-0 transition-all ease-linear duration-300 overflow-auto 2xl:ml-10 lg:ml-8 ${
+        toggleSidebar ? "2xl:pl-0" : "2xl:pl-0 w-full "
       }`}
     >
-      <div className="mt-8 mb-10 lg:ml-8 mb:mx-2 lg:mx-0">
+      <div className="mt-8 mb-10 2xl:ml-0 mb:mx-2 lg:mx-0">
         <img
           src="https://images.unsplash.com/photo-1711843250811-a7d0bb485a42?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="userImage"
           className="w-[120px] h-[120px] rounded-full object-cover inline-block mr-2"
         />
-        <span className="text-4xl font-bold">Nhật Thành</span>
+        <span className="text-4xl font-bold 2xl:ml-3">Nhật Thành</span>
       </div>
       <div className="flex items-center">
         <div onClick={() => dispatch(handleShowPostSaved(false))}>

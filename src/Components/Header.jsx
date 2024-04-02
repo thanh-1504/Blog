@@ -12,6 +12,7 @@ import { auth } from "../firebaseConfig";
 const Header = ({
   hasSearchInput = true,
   hasSidebar = true,
+  hasHambugerIcon = true,
   userImgStyle = "",
 }) => {
   const headerRef = useRef();
@@ -40,7 +41,6 @@ const Header = ({
       window.location.reload();
     }, 1500);
   };
-  const widthUserInfo = window.innerWidth * 0.9;
   return (
     <header
       className={`header w-full h-full max-h-[70px] fixed top-0 left-0 z-[999] border-b border-b-[#ccc] bg-white dark:bg-themeDark ${
@@ -55,6 +55,7 @@ const Header = ({
       >
         <div className="flex items-center ">
           {hasSidebar && (
+            hasHambugerIcon && 
             <div
               onClick={() => handleToggleSidebar()}
               className="p-4 mr-2 rounded-full cursor-pointer hambuger hover:bg-hamburgerHover "

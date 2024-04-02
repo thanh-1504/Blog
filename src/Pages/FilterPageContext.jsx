@@ -2,17 +2,17 @@
 /* eslint-disable no-unused-vars */
 import React, { useId } from "react";
 import PostItemFilter from "../Components/Post/PostItemFilter";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { handleGetDataFilterInput } from "../redux-thunk/Slices/filterPostsSlice";
 import { handleGetDataFilterPost } from "../redux-thunk/handler";
 const FilterPageContext = ({ data }) => {
   const idFilterPost = useId();
   const dispatch = useDispatch();
   return (
-    <div className="w-full pt-[100px] flex justify-center ">
-      <div className="w-full max-w-[1000px] bg-white pl-10 rounded-md">
-        <div className="flex items-center">
-          <div className="flex items-center w-[50%] rounded-xl bg-[#eceff1] py-3 justify-center mt-8 ml-2">
+    <div className="w-full min-h-screen pt-[100px] flex justify-center ">
+      <div className="w-full max-w-[1000px] bg-white lg:pl-10 rounded-md">
+        <div className="lg:flex lg:items-center">
+          <div className="flex items-center  rounded-xl bg-[#eceff1] py-3 justify-center lg:w-[50%] lg:mt-8 lg:ml-2 mb:mt-6 mb:w-[80%] mb:ml-auto mb:mr-auto">
             <svg
               className="w-full mx-5 max-w-4"
               xmlns="http://www.w3.org/2000/svg"

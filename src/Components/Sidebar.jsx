@@ -10,7 +10,7 @@ const Sidebar = () => {
   useEffect(() => {}, []);
   return (
     <div
-      className={`sidebar mb:-translate-x-full mb:shadow-2xl lg:shadow h-screen transition-all ease duration-500 mb:w-[60%] mb:fixed mb:top-16 mb:left-0 lg:relative lg:w-[20%] lg:top-0 bg-white z-50 dark:bg-themeDark 2xl:w-[15%] ${
+      className={`sidebar mb:-translate-x-full mb:shadow-2xl lg:shadow h-screen transition-all ease duration-500 mb:w-[60%] fixed mb:top-16 mb:left-0 lg:top-[60px] lg:w-[20%]  bg-white z-50 dark:bg-themeDark 2xl:w-[15%] ${
         toggleSidebar
           ? "lg:translate-x-0"
           : "lg:-translate-x-full mb:translate-x-0"

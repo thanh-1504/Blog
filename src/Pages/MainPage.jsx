@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../Components/Sidebar";
 import PostsMainPage from "../Components/Post/PostsMainPage";
 import { useShowScrollbar } from "../hooks/useShowScrollbar";

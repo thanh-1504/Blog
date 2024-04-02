@@ -229,7 +229,6 @@ export const handleGetDataUserPost = createAsyncThunk(
 export const handleGetDataFilterPost = createAsyncThunk(
   "getDataFilterInput",
   async (value, { dispatch }) => {
-    console.log(value);
     const result = [];
     const cuisineSnapshot = await getDocs(collection(db, "Cuisine"));
     cuisineSnapshot.forEach((doc) => {
