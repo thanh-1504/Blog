@@ -48,10 +48,10 @@ const DiscoverPageContext = ({ toggleSidebar }) => {
             <option value="Fashion">Fashion</option>
             <option value="Game">Game</option>
           </select>
-        <Category style="mb:block">{category}</Category>
+          <Category style="mb:block">{category}</Category>
         </div>
       </div>
-      <div className="lg:flex lg:flex-wrap lg:flex-row mb:flex mb:flex-col mb:items-center">
+      <div className="lg:flex lg:flex-wrap lg:flex-row mb:flex mb:flex-col ">
         {data.length > 0 &&
           data.map((post) => {
             return <PostItem key={post.id} data={post}></PostItem>;

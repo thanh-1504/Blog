@@ -38,13 +38,13 @@ const UserPageContent = ({ toggleSidebar }) => {
   }, []);
   return (
     <div
-      className={`lg:w-[80%] mb:pl-2 lg:pl-0 max-w-[1108px] transition-all ease-linear duration-300 max-h-[500px] overflow-auto ${
+      className={`lg:w-[80%] lg:pl-0 max-w-[1108px] transition-all ease-linear duration-300 max-h-[500px] overflow-auto ${
         toggleSidebar ? "lg:pl-5" : "lg:pl-2 w-full "
       }`}
     >
-      <div className="mt-8 mb-10 lg:ml-8">
+      <div className="mt-8 mb-10 lg:ml-8 mb:mx-2 lg:mx-0">
         <img
-          src="https://images.unsplash.com/photo-1594536717222-b26df7f2f23b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGdpcmwlMjBzZXh8ZW58MHx8MHx8fDA%3D"
+          src="https://images.unsplash.com/photo-1711843250811-a7d0bb485a42?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="userImage"
           className="w-[120px] h-[120px] rounded-full object-cover inline-block mr-2"
         />

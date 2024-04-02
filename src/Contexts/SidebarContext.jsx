@@ -8,7 +8,7 @@ function SidebarProvider(props) {
   }
   return (
     <SidebarContext.Provider
-      value={{ toggleSidebar, handleToggleSidebar }}
+      value={{ toggleSidebar, handleToggleSidebar,setToggleSidebar }}
       {...props}
     ></SidebarContext.Provider>
   );
@@ -18,4 +18,4 @@ function useSidebarContext() {
   if (typeof context === "undefined") throw Error("Some thing was wrong!");
   return context;
 }
-export { SidebarProvider, useSidebarContext };
+export { SidebarProvider, useSidebarContext, };

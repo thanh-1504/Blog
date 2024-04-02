@@ -13,7 +13,7 @@ const DiscoverPage = () => {
     <div>
       <div className="pt-[80px]">
         <div className="lg:flex w-full h-full">
-          <Header></Header>
+          <Header userImgStyle="lg:mr-8"></Header>
           <Sidebar></Sidebar>
           <DiscoverPageContext
             toggleSidebar={toggleSidebar}

@@ -11,7 +11,7 @@ const UserPage = () => {
   const { toggleSidebar } = useSidebarContext();
   return (
     <div>
-      <Header></Header>
+      <Header userImgStyle="lg:mr-8"></Header>
       <div className="pt-[80px] flex">
         <Sidebar></Sidebar>
         <UserPageContent toggleSidebar={toggleSidebar}></UserPageContent>

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import BlogLogo from "./BlogLogo";
 import { useSidebarContext } from "../Contexts/SidebarContext";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,12 @@ import { handleCheckedInputDarkMode } from "../redux-thunk/Slices/darkModeSlice"
 import { handleShowUserSetting } from "../redux-thunk/Slices/userSettingSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebaseConfig";
-const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
+const Header = ({
+  hasSearchInput = true,
+  hasSidebar = true,
+  userImgStyle = "",
+}) => {
+  const headerRef = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const html = document.documentElement;
@@ -35,11 +40,13 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
       window.location.reload();
     }, 1500);
   };
+  const widthUserInfo = window.innerWidth * 0.9;
   return (
     <header
-      className={`w-full h-full max-h-[70px] fixed top-0 left-0 z-[999] border-b border-b-[#ccc] bg-white dark:bg-themeDark ${
+      className={`header w-full h-full max-h-[70px] fixed top-0 left-0 z-[999] border-b border-b-[#ccc] bg-white dark:bg-themeDark ${
         !hasSearchInput && !hasSidebar && "lg:px-10"
       }`}
+      ref={headerRef}
     >
       <div
         className={`flex items-center h-full justify-between mb:px-5 lg:px-0 ${
@@ -85,7 +92,7 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
             />
           </div>
         )}
-        <div className="flex items-center select-none lg:mr-10">
+        <div className="flex items-center select-none lg:mr-0">
           {!localStorage.getItem("user") && (
             <>
               <span
@@ -104,12 +111,12 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
             </>
           )}
           {localStorage.getItem("user") && (
-            <div className="relative">
+            <div className="">
               <img
                 onClick={() =>
                   dispatch(handleShowUserSetting(!showUserSetting))
                 }
-                className="ml-5 rounded-full cursor-pointer w-9 h-9 lg:mr-4 "
+                className={`ml-5 rounded-full cursor-pointer w-9 h-9  ${userImgStyle}`}
                 src={`${
                   userInfo?.photoURL ||
                   "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1709683200&semt=ais"
@@ -117,10 +124,12 @@ const Header = ({ hasSearchInput = true, hasSidebar = true }) => {
                 alt="userImage"
               />
               {showUserSetting && (
-                <div className="absolute user__info  w-[412px] h-[280px] bg-[#e9eef6] right-0 top-[3.3rem] rounded-3xl shadow-userInfoShadow">
+                <div
+                  className={`absolute lg:w-[412px] mb:w-full flex-col mx-auto h-[280px] bg-[#e9eef6] lg:right-8 mb:right-0 top-[4.3rem] rounded-3xl shadow-userInfoShadow`}
+                >
                   <div
                     onClick={() => dispatch(handleShowUserSetting(false))}
-                    className="p-2 rounded-full hover:bg-[rgba(60,64,67,.1)] inline absolute right-4 top-2 cursor-pointer"
+                    className="btnClose__userInfo p-2 rounded-full hover:bg-[rgba(60,64,67,.1)] inline absolute right-4 top-2 cursor-pointer"
                   >
                     <svg
                       className="w-5 h-5"

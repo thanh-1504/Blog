@@ -11,14 +11,12 @@ import {
   handleSavedPost,
 } from "../redux-thunk/handler";
 import parse from "html-react-parser";
-import { deleteDoc, doc, setDoc } from "firebase/firestore";
-import { db } from "../firebaseConfig";
 const PostDetail = () => {
   const { idPost, page } = useParams();
   const { data, dataSamePost } = useSelector((state) => state.detailPage);
   const { day, month, year } = useFormatDate(data?.dateCreated);
   const [savedPost, setSavedPost] = useState(false);
-  const isSavedPost = localStorage.getItem("savedPosts")?.includes(idPost);
+  const isSavedPost = localStorage.getItem("savedPost")?.includes(idPost);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(handleGetDataDetailPage({ idPost, page }));
@@ -29,11 +27,29 @@ const PostDetail = () => {
   useEffect(() => {
     dispatch(handleGetSamePost({ page, idPost }));
   }, [dispatch, page, idPost]);
+  useEffect(() => {
+    function handleShowHeader(e) {
+      if (e.deltaY > 0) {
+        document.querySelector("header").classList.remove("show__header");
+        document.querySelector("header").classList.add("hide__header");
+      } else {
+        document.querySelector("header").classList.remove("hide__header");
+        document.querySelector("header").classList.add("show__header");
+      }
+    }
+    window.addEventListener("mousewheel", handleShowHeader);
+    return () => {
+      window.removeEventListener("mousewheel", handleShowHeader);
+    };
+  }, []);
   if (!data) return;
-
   return (
-    <div className="">
-      <Header hasSearchInput={false} hasSidebar={false}></Header>
+    <div>
+      <Header
+        hasSearchInput={false}
+        hasSidebar={false}
+        userImgStyle="lg:mr-0"
+      ></Header>
       <div className={`h-full w-full`}>
         <img
           className="absolute top-0 left-0 z-30 object-cover w-full h-full"
@@ -58,7 +74,7 @@ const PostDetail = () => {
               <div
                 onClick={() => {
                   setSavedPost(!savedPost);
-                  dispatch(handleSavedPost({  data }));
+                  dispatch(handleSavedPost({ data }));
                 }}
                 className="p-2 ml-auto bg-gray-300 rounded-md cursor-pointer select-none lg:items-center lg:flex lg:mr-10 mb:mr-2"
               >

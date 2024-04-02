@@ -105,7 +105,6 @@ z-index: 50; */
 }
 @media only screen and (max-width: 441px) {
   .quill {
-    margin-top: 24px;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
@@ -214,4 +213,19 @@ z-index: 50; */
   opacity: 1;
 }
 
+.hide__header {
+  transform: translateY(-100%);
+  transition: all ease 0.2s;
+}
 
+.show__header {
+  transform: translateY(0);
+  transition: all ease 0.2s;
+}
+
+@media only screen and (min-width: 1500px) {
+  .quill {
+    width: 90%;
+    margin-right: 50px;
+  }
+}

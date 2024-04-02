@@ -9,7 +9,7 @@ import { handleGetData } from "../../redux-thunk/Slices/postMainPageSlice";
 
 const PostsMainPage = () => {
   const { data } = useSelector((state) => state.mainPage);
-  const { toggleSidebar } = useSidebarContext();
+  let { toggleSidebar, setToggleSidebar } = useSidebarContext();
   const dispatch = useDispatch();
   useEffect(() => {
     onSnapshot(collection(db, "user's post"), (snapshot) => {
@@ -28,16 +28,30 @@ const PostsMainPage = () => {
   }, [dispatch]);
   return (
     <div
-      className={`lg:w-[80%] lg:max-h-[500px] lg:overflow-auto lg:px-0 lg:max-w-[1108px] 2xl:w-full 2xl:max-w-none 2xl:flex 2xl:flex-col 2xl:items-center  mb:w-full mb:px-5 transition-all ease-in-out duration-500 ${
+      onClick={(e) => {
+        if (!e.currentTarget.matches("sidebar") && window.innerWidth <= 440)
+          setToggleSidebar(true);
+      }}
+      className={`lg:w-[80%] h-screen lg:max-h-[500px] lg:overflow-auto lg:px-0 lg:max-w-[1108px] 2xl:w-full 2xl:max-w-none 2xl:flex 2xl:flex-col 2xl:items-center mb:w-full mb:px-5 transition-all ease-in-out duration-500 ${
         toggleSidebar
-          ? "lg:pl-[33px] 2xl:pl-0"
+          ? "lg:pl-[33px] 2xl:pl-0 "
           : "lg:pl-0 lg:w-full lg:ml-[-50px] 2xl:pr-[10%]"
       }`}
     >
       <p className={`inline-block mt-8 mb-6 2xl:relative 2xl:right-[420px]`}>
         Tất cả ({data?.length})
       </p>
-      {data &&
+      {data.length === 0 ? (
+        <div className="flex flex-col items-center lg:mt-5 2xl:mt-10">
+          <img
+            className="w-[100px] h-[100px] "
+            src="https://www.blogger.com/img/pencilpotscissorsdesk.png"
+            alt="empty post"
+          />
+          <p>No posts</p>
+          <p className="text-sm">Posts you create will appear here</p>
+        </div>
+      ) : (
         data.map((dataItem) => {
           return (
             <PostMainPageItem
@@ -45,7 +59,8 @@ const PostsMainPage = () => {
               data={dataItem}
             ></PostMainPageItem>
           );
-        })}
+        })
+      )}
     </div>
   );
 };
