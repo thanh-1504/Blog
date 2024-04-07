@@ -51,7 +51,7 @@ const SignInPage = () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     try {
-      const userInfo = await signInWithRedirect(auth, provider);
+      const userInfo = await signInWithPopup(auth, provider);
       setTimeout(() => {
         toast("Logged in successfully", {
           pauseOnHover: false,
@@ -115,39 +115,6 @@ const SignInPage = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    const handleRedirectResult = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result.user) {
-          setTimeout(() => {
-            toast("Logged in successfully", {
-              pauseOnHover: false,
-              autoClose: 1000,
-              type: "success",
-            });
-          }, 1000);
-          setTimeout(() => {
-            navigate("/");
-          }, 3000);
-          localStorage.setItem(
-            "user",
-            JSON.stringify({
-              id: result.user.uid,
-              email: result.user.email,
-              displayName: result.user.displayName,
-              photoURL: result.user.photoURL,
-            })
-          );
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-
-    handleRedirectResult(); // Gọi hàm xử lý kết quả redirect
-  }, [navigate]); // useEffect chỉ chạy một lần sau khi component được render
 
   return (
     <div className="relative w-full h-screen bg-[#f7f7f7] dark:bg-themeDark">
