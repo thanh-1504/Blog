@@ -119,7 +119,7 @@ const SignInPage = () => {
     const handleSignInRedirect = async () => {
       try {
         const result = await getRedirectResult(auth);
-        if (result.user) {
+        if (result?.user) {
           // Handle successful sign-in
           const userInfo = {
             id: result.user.uid,
@@ -136,18 +136,12 @@ const SignInPage = () => {
           navigate("/");
         }
       } catch (error) {
-        console.error(error.message);
         // Handle sign-in error
-        toast("Error occurred while signing in", {
-          type: "error",
-          pauseOnHover: false,
-          autoClose: 2500,
-        });
+        console.log(error);
       }
     };
-
     handleSignInRedirect();
-  }, [auth, navigate]);
+  }, [navigate]);
 
   return (
     <div className="relative w-full h-screen bg-[#f7f7f7] dark:bg-themeDark">
