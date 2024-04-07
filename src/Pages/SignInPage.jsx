@@ -51,7 +51,7 @@ const SignInPage = () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     try {
-      const userInfo = await signInWithRedirect(auth, provider);
+      const userInfo = await signInWithPopup(auth, provider);
       setTimeout(() => {
         toast("Logged in successfully", {
           pauseOnHover: false,
