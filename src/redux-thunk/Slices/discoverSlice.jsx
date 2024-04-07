@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const discoverSlice = createSlice({
   name: "discover",
-  initialState: { category: "Popular", data: [] },
+  initialState: { category: "Cuisine", data: [] },
   reducers: {
     handleSelectCategoryText: (state, action) => {
       state.category = action.payload;

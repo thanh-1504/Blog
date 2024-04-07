@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { handleDeletePost } from "../../redux-thunk/handler";
 import { useDispatch } from "react-redux";
@@ -9,8 +9,24 @@ const PostMainPageItem = ({ data }) => {
   const { imgURL, title, author, dateCreated, id, category } = data;
   const { day, month } = useFormatDate(dateCreated);
   const userInfo = JSON.parse(localStorage.getItem("user"));
+  const postManagementRef = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  useEffect(() => {
+    function handleClick(e) {
+      if (
+        !e.target.closest(".post--management") &&
+        !e.target.closest(".management-iconPath") &&
+        !e.target.closest(".management-iconSvg")
+      ) {
+        postManagementRef.current?.classList.remove("post--management");
+      }
+    }
+    window.addEventListener("click", handleClick);
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  }, []);
   return (
     <div className="w-full max-w-[930px] lg:h-full lg:max-h-[96px] lg:px-4 mb:py-7 mb:px-3 flex items-center border border-[#dbe2e5] mb-3 rounded-[4px] cursor-pointer hover:shadow-md transition-all justify-between">
       <div className="flex items-center">
@@ -34,15 +50,21 @@ const PostMainPageItem = ({ data }) => {
                   }
                 >
                   <svg
-                    className="w-5 h-5 ml-5 mr-2"
+                    className="w-5 h-5 ml-5 mr-2 management-iconSvg"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 128 512"
                   >
-                    <path d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z" />
+                    <path
+                      className="management-iconPath"
+                      d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"
+                    />
                   </svg>
                 </span>
-                <ul className="w-[168px] shadow-xl absolute right-[-0.8rem] bg-white opacity-0 transition-all">
-                  <li className="">
+                <ul
+                  ref={postManagementRef}
+                  className="w-[168px] shadow-xl absolute right-[-0.8rem] bg-white opacity-0 invisible transition-all"
+                >
+                  <li onClick={() => navigate(`/${category}/${id}`)}>
                     <span className="block p-2 text-center hover:bg-gray-200">
                       <svg
                         className="inline w-3 h-3 mr-2"
@@ -54,7 +76,17 @@ const PostMainPageItem = ({ data }) => {
                       Xem
                     </span>
                   </li>
-                  <li>
+                  <li
+                    onClick={() => {
+                      dispatch(
+                        handleDeletePost({
+                          idPost: id,
+                          page: `user's post`,
+                          samePage: category,
+                        })
+                      );
+                    }}
+                  >
                     <span className="block p-2 text-center hover:bg-gray-200">
                       <svg
                         className="inline w-3 h-3 mr-2"
@@ -66,7 +98,7 @@ const PostMainPageItem = ({ data }) => {
                       Xóa
                     </span>
                   </li>
-                  <li>
+                  <li onClick={() => navigate(`/edit/${id}`)}>
                     <span className="block p-2 text-center hover:bg-gray-200">
                       <svg
                         className="inline w-3 h-3 mr-2"
@@ -91,7 +123,7 @@ const PostMainPageItem = ({ data }) => {
         <div className="flex items-center">
           <span onClick={() => navigate(`/${category}/${id}`)} title="Xem">
             <svg
-              fill="#546e7a"
+              fill="#546e7a "
               className="w-5 h-5 mr-4 "
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 576 512"

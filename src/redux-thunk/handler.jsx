@@ -142,7 +142,6 @@ export const handleViewedPost = createAsyncThunk(
     }
     if (!page.includes("/user")) {
       await setDoc(doc(db, "Viewed", data.id), data);
-
       localStorage.setItem("viewed", JSON.stringify(viewed));
     }
   }
@@ -278,3 +277,17 @@ export const handleGetSamePost = createAsyncThunk(
     dispatch(handleGetDataSamePost(data.filter((post) => post.id !== idPost)));
   }
 );
+
+export const handleShowSidebar = (toggleSidebar, page = "") => {
+  if (window.innerWidth > 440) {
+    if (!toggleSidebar) {
+      if (page === "userPage" || page === "discoverPage")
+        return { marginLeft: `${window.innerWidth * (1 - 89.32 / 100)}px` };
+      if (page === "/") return { marginLeft: `${window.innerWidth * 0.129}px` };
+    }
+    if (toggleSidebar) {
+      if (page === "/")
+        return { marginLeft: `${window.innerWidth * 0.22656}px` };
+    }
+  }
+};

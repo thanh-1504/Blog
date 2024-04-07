@@ -1,23 +1,35 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PostItem from "./Post/PostItem";
 import { useDispatch, useSelector } from "react-redux";
 import { handleShowPostSaved } from "../redux-thunk/Slices/userPageSlice";
 import {
   handleGetViewedPost,
   handleGetSavedPosts,
+  handleShowSidebar,
 } from "../redux-thunk/handler";
-const UserPageContent = ({ toggleSidebar }) => {
+import { useSidebarContext } from "../Contexts/SidebarContext";
+const UserPageContent = () => {
   const ref = useRef([]);
   const dispatch = useDispatch();
+  let { toggleSidebar, setToggleSidebar } = useSidebarContext();
   const pushRefs = (refElement) => ref.current.push(refElement);
+  const [isDataFetched, setIsFetchedData] = useState(false);
+  const userImg =
+    JSON.parse(localStorage.getItem("user"))?.photoURL ||
+    "https://www.blogger.com/img/logo_blogger_40px_2x.png";
   const { showPostSaved, dataViewedPost, dataSavedPosts } = useSelector(
     (state) => state.userPage
   );
+  const nameUser =
+    JSON.parse(localStorage.getItem("user"))?.displayName || "User";
   useEffect(() => {
     dispatch(handleGetViewedPost());
     dispatch(handleGetSavedPosts());
+    setTimeout(() => {
+      setIsFetchedData(true);
+    }, 200);
   }, [dispatch]);
   useEffect(() => {
     function handleUI() {
@@ -34,23 +46,29 @@ const UserPageContent = ({ toggleSidebar }) => {
       ref.current.forEach((item) => {
         item?.removeEventListener("click", handleClick);
       });
+      setToggleSidebar(true);
     };
-  }, []);
+  }, [setToggleSidebar]);
   return (
     <div
-      className={`2xl:w-full w-full lg:pl-0 transition-all ease-linear duration-300 overflow-auto 2xl:ml-10 lg:ml-8 ${
+      style={handleShowSidebar(toggleSidebar, "userPage")}
+      onClick={(e) => {
+        if (!e.currentTarget.matches("sidebar") && window.innerWidth <= 440)
+          setToggleSidebar(true);
+      }}
+      className={`2xl:w-full w-full h-screen lg:pl-0 transition-all ease-linear duration-300 2xl:ml-10 lg:ml-[260px] ${
         toggleSidebar ? "2xl:pl-0" : "2xl:pl-0 w-full "
       }`}
     >
-      <div className="mt-8 mb-10 2xl:ml-0 mb:mx-2 lg:mx-0">
+      <div className="mt-8 mb-4 mb:ml-2 lg:ml-0 2xl:ml-0 ">
         <img
-          src="https://images.unsplash.com/photo-1711843250811-a7d0bb485a42?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={`${userImg}`}
           alt="userImage"
-          className="w-[120px] h-[120px] rounded-full object-cover inline-block mr-2"
+          className="w-[120px] h-[120px] rounded-full object-cover inline-block mr-4"
         />
-        <span className="text-4xl font-bold 2xl:ml-3">Nhật Thành</span>
+        <span className="text-4xl font-bold 2xl:ml-3">{nameUser}</span>
       </div>
-      <div className="flex items-center">
+      <div className="flex items-center mb-5">
         <div onClick={() => dispatch(handleShowPostSaved(false))}>
           <svg
             fill="#575757"
@@ -85,19 +103,43 @@ const UserPageContent = ({ toggleSidebar }) => {
         </div>
       </div>
       {!showPostSaved && (
-        <div className="lg:flex lg:flex-wrap lg:items-center mb:grid mb:grid-cols-2">
-          {dataViewedPost.length > 0 &&
+        <div className="mb:flex mb:flex-row mb:flex-wrap mb:justify-evenly lg:flex lg:flex-row lg:flex-wrap lg:gap-y-5 lg:justify-start 2xl:place-items-center 2xl:gap-y-0">
+          {!isDataFetched ? (
+            <div className="flex flex-col justify-center items-center mb:mt-[50px] w-full">
+              <div
+                className="inline-block animate-spin mb:h-10 mb:w-10 lg:w-[50px] lg:h-[50px] text-blue-500 rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
+                role="status"
+              >
+                <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"></span>
+              </div>
+              <span className="mt-4">Loading</span>
+            </div>
+          ) : (
+            dataViewedPost.length > 0 &&
             dataViewedPost.map((post) => {
               return <PostItem key={post.id} data={post}></PostItem>;
-            })}
+            })
+          )}
+          <div className="mb:mb-5 mb:min-w-[185px]"></div>
         </div>
       )}
       {showPostSaved && (
-        <div className="lg:flex lg:flex-wrap lg:items-center mb:grid mb:grid-cols-2">
-          {dataSavedPosts.length > 0 &&
+        <div className="mb:flex mb:flex-row mb:flex-wrap mb:justify-evenly lg:flex lg:flex-row lg:flex-wrap lg:gap-y-5 lg:justify-start 2xl:place-items-center 2xl:gap-y-0">
+          {dataSavedPosts.length > 0 ? (
             dataSavedPosts.map((post) => {
               return <PostItem key={post.id} data={post}></PostItem>;
-            })}
+            })
+          ) : (
+            <div className="flex flex-col justify-center items-center w-full mb:mt-10">
+              <img
+                className="mb:w-[150px] mb:h-[150px]"
+                src="https://www.blogger.com/img/pencilpotscissorsdesk.png"
+                alt=""
+              />
+              <p>There are no saved posts</p>
+            </div>
+          )}
+          <div className="mb:mb-5 mb:min-w-[185px]"></div>
         </div>
       )}
     </div>

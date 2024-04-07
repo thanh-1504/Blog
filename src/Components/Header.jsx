@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import BlogLogo from "./BlogLogo";
 import { useSidebarContext } from "../Contexts/SidebarContext";
 import { useNavigate } from "react-router-dom";
@@ -14,8 +14,8 @@ const Header = ({
   hasSidebar = true,
   hasHambugerIcon = true,
   userImgStyle = "",
+  style = "",
 }) => {
-  const headerRef = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const html = document.documentElement;
@@ -43,10 +43,9 @@ const Header = ({
   };
   return (
     <header
-      className={`header w-full h-full max-h-[70px] fixed top-0 left-0 z-[999] border-b border-b-[#ccc] bg-white dark:bg-themeDark ${
+      className={`header w-full h-full max-h-[70px] fixed top-0 left-0 z-[999] border-b border-b-[#ccc] bg-white dark:bg-themeDark ${style} ${
         !hasSearchInput && !hasSidebar && "lg:px-10"
       }`}
-      ref={headerRef}
     >
       <div
         className={`flex items-center h-full justify-between mb:px-5 lg:px-0 ${
@@ -54,8 +53,7 @@ const Header = ({
         }`}
       >
         <div className="flex items-center ">
-          {hasSidebar && (
-            hasHambugerIcon && 
+          {hasSidebar && hasHambugerIcon && (
             <div
               onClick={() => handleToggleSidebar()}
               className="p-4 mr-2 rounded-full cursor-pointer hambuger hover:bg-hamburgerHover "
@@ -88,12 +86,12 @@ const Header = ({
                 }
               }}
               placeholder="Tìm kiếm bài đăng"
-              className="outline-none bg-[#eceff1] w-full"
+              className="outline-none bg-[#eceff1] w-full text-black"
               type="text"
             />
           </div>
         )}
-        <div className="flex items-center select-none lg:mr-0">
+        <div className={`flex items-center select-none ${style}`}>
           {!localStorage.getItem("user") && (
             <>
               <span
@@ -105,7 +103,7 @@ const Header = ({
               <span className="mx-2">|</span>
               <span
                 onClick={() => navigate("/sign-in")}
-                className=" cursor-pointer hover:text-[#f57c00] text-lg"
+                className="cursor-pointer hover:text-[#f57c00] text-lg"
               >
                 Sign in
               </span>

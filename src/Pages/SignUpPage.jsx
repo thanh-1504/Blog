@@ -99,9 +99,21 @@ const SignUpPage = () => {
 
   return (
     <div className="relative w-full h-screen bg-[#f7f7f7] dark:bg-themeDark">
-      <BlogLogo style="ml-10 pt-6"></BlogLogo>
-      <div className="absolute shadow-authenticationShadow  left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4  w-full max-w-[400px]  px-[30px] min-h-[450px] dark:bg-[#f7f7f7] rounded dark:text-black">
-        <p className="font-bold text-3xl mb-5 mt-[52px] select-none">Sign up</p>
+      {window.innerWidth > 480 && <BlogLogo style="ml-10 pt-6"></BlogLogo>}
+      <div
+        className={`absolute lg:shadow-authenticationShadow  left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4  w-full max-w-[400px]  px-[30px] min-h-[450px] dark:bg-[#f7f7f7] rounded dark:text-black ${
+          !errors.email && !errors.password ? "min-h-[450px]" : "min-h-[490px]"
+        }`}
+      >
+        {window.innerWidth < 480 && (
+          <div className="absolute left-2/4 -translate-x-[66%] flex items-center">
+            <BlogLogo style="mr-4 w-[60px] h-[60px] max-w-none"></BlogLogo>
+            <span className="text-3xl font-bold min-w-[180px]">My Blogger</span>
+          </div>
+        )}
+        <p className="font-bold text-2xl mb-5 lg:mt-[52px] mb:mt-[100px] select-none">
+          Sign up
+        </p>
         <form
           onSubmit={handleSubmit(handleSubmitForm)}
           className="flex flex-col"
@@ -111,10 +123,12 @@ const SignUpPage = () => {
             {...register("email")}
             type="text"
             placeholder="Email"
-            className="p-2 outline-none border-[1.5px] border-black mb-5 rounded-md"
+            className={`p-2 outline-none border-[1.5px] border-black rounded-md ${
+              !errors?.email && "mb-5"
+            }`}
           />
           {errors?.email && (
-            <span className="text-red-500">{errors.email.message}</span>
+            <span className="text-red-500 my-2">{errors.email.message}</span>
           )}
           <div className="relative p-2 border-[1.5px] border-black rounded-md">
             <input
@@ -141,7 +155,7 @@ const SignUpPage = () => {
             )}
           </div>
           {errors?.password && (
-            <span className="text-red-500">{errors.password.message}</span>
+            <span className="text-red-500 mt-2">{errors.password.message}</span>
           )}
           <p
             onClick={() => navigate("/sign-in")}
@@ -189,7 +203,7 @@ const SignUpPage = () => {
           <button onClick={handleSignInWithGoogle}>Sign up with Google</button>
         </div>
       </div>
-      <ToastContainer />
+      <ToastContainer className="mobile-toast-container" />
     </div>
   );
 };

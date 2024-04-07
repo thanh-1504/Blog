@@ -1,18 +1,19 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useId } from "react";
+import React, { useId, useState } from "react";
 import PostItemFilter from "../Components/Post/PostItemFilter";
 import { useDispatch } from "react-redux";
-import { handleGetDataFilterInput } from "../redux-thunk/Slices/filterPostsSlice";
 import { handleGetDataFilterPost } from "../redux-thunk/handler";
-const FilterPageContext = ({ data }) => {
+import PostItem from "../Components/Post/PostItem";
+const FilterPageContext = ({ data, isFetchedData }) => {
   const idFilterPost = useId();
+  const [valueSearch, setValueSearch] = useState("");
   const dispatch = useDispatch();
   return (
-    <div className="w-full min-h-screen pt-[100px] flex justify-center ">
-      <div className="w-full max-w-[1000px] bg-white lg:pl-10 rounded-md">
-        <div className="lg:flex lg:items-center">
-          <div className="flex items-center  rounded-xl bg-[#eceff1] py-3 justify-center lg:w-[50%] lg:mt-8 lg:ml-2 mb:mt-6 mb:w-[80%] mb:ml-auto mb:mr-auto">
+    <div className="w-full min-h-screen pt-[100px] flex justify-center overflow-hidden dark:bg-themeDark">
+      <div className="w-full max-w-[1000px] bg-white rounded-md lg:pl-10 dark:bg-themeDark">
+        <div className="lg:flex lg:items-center mb:px-5 lg:px-0">
+          <div className="flex items-center rounded-xl bg-[#eceff1] py-3 justify-center lg:w-[50%] lg:mt-8 lg:ml-2 lg:mr-0 mb:mt-6 mb:w-full mb:mb-3">
             <svg
               className="w-full mx-5 max-w-4"
               xmlns="http://www.w3.org/2000/svg"
@@ -23,26 +24,55 @@ const FilterPageContext = ({ data }) => {
             <input
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
+                  setValueSearch(e.target.value);
                   dispatch(
                     handleGetDataFilterPost(e.target.value.trim().toLowerCase())
                   );
                 }
               }}
               placeholder="Tìm kiếm bài đăng"
-              className="outline-none bg-[#eceff1] w-full"
+              className="outline-none bg-[#eceff1] w-full text-black"
               type="text"
             />
           </div>
-          <span className="ml-10 translate-y-[55%]">
-            Found {data.length || 0} results
-          </span>
+          {valueSearch && window.innerWidth < 480 && (
+            <span className="lg:ml-10 translate-y-[55%]">
+              Found {data.length || 0} results
+            </span>
+          )}
+          {window.innerWidth > 480 && (
+            <span className="lg:ml-10 translate-y-[55%]">
+              Found {data.length || 0} results
+            </span>
+          )}
         </div>
-        {data.length > 0 &&
-          data.map((post) => {
-            return (
-              <PostItemFilter data={post} key={idFilterPost}></PostItemFilter>
-            );
-          })}
+        {!isFetchedData ? (
+          <div className="flex flex-col justify-center items-center mb:mt-[50px]">
+            <div
+              className="inline-block animate-spin mb:h-10 mb:w-10 lg:w-[50px] lg:h-[50px] text-blue-500 rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
+              role="status"
+            >
+              <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"></span>
+            </div>
+            <span className="mt-4">Loading</span>
+          </div>
+        ) : (
+          data.length > 0 && (
+            <div className="mb:flex mb:flex-row mb:flex-wrap mb:justify-evenly mb:gap-y-3 mb:mt-3 lg:mt-5 lg:block">
+              {data.map((post) => {
+                return (
+                  <PostItem
+                    style="lg:flex lg:items-center lg:min-w-[400px] lg:max-w-[550px] lg:mb-3"
+                    styleText="lg:ml-5"
+                    data={post}
+                    key={idFilterPost}
+                  ></PostItem>
+                );
+              })}
+              <div className="mb:mb-5 mb:min-w-[185px]"></div>
+            </div>
+          )
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PostItem from "./Post/PostItem";
 import Category from "./Category";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,55 +8,93 @@ import {
   handleGetDataDiscover,
   handleSelectCategoryText,
 } from "../redux-thunk/Slices/discoverSlice";
-import { handleFetchDataDiscoverPage } from "../redux-thunk/handler";
-const DiscoverPageContext = ({ toggleSidebar }) => {
+import {
+  handleFetchDataDiscoverPage,
+  handleShowSidebar,
+} from "../redux-thunk/handler";
+import { useSidebarContext } from "../Contexts/SidebarContext";
+const DiscoverPageContext = ({ showSidebar }) => {
   const dispatch = useDispatch();
+  const [isFetchedData, setIsFetchedData] = useState(false);
   const { category, data } = useSelector((state) => state.discover);
+  let { toggleSidebar, setToggleSidebar } = useSidebarContext();
   useEffect(() => {
     async function fetchData() {
       const response = await dispatch(handleFetchDataDiscoverPage(category));
       const data = response.payload;
       dispatch(handleGetDataDiscover(data));
+      setIsFetchedData(true);
     }
     fetchData();
-  }, [dispatch, category]);
+    return () => {
+      setIsFetchedData(false);
+      setToggleSidebar(true);
+    };
+  }, [dispatch, category, setToggleSidebar]);
   useEffect(() => {
     return () => {
-      dispatch(handleSelectCategoryText("Popular"));
+      dispatch(handleSelectCategoryText("Cuisine"));
     };
   }, [dispatch]);
   return (
     <div
-      className={`w-full overflow-auto transition-all ease-linear duration-300 lg:ml-8 2xl:ml-6 ${
-        toggleSidebar ? "" : " lg:w-full"
+      style={handleShowSidebar(toggleSidebar, "discoverPage")}
+      onClick={(e) => {
+        if (!e.currentTarget.matches("sidebar") && window.innerWidth <= 440)
+          setToggleSidebar(true);
+      }}
+      className={`w-full h-screen transition-all ease-linear duration-300 2xl:ml-6 lg:px-0 ${
+        showSidebar ? "lg:ml-[260px]" : `lg:w-full`
       }  `}
     >
       <div className="lg:flex lg:items-center mb:block lg:mt-10 mb:mt-5 ml-1 justify-between max-w-[970px]">
-        <div className="lg:mr-[80px] mb:ml-5 lg:ml-0">
+        <div className="lg:mr-[80px] mb:mb-5  mb:ml-3 lg:ml-0 lg:mb-0">
           <label className="mr-2 select-none" htmlFor="category">
             Phân loại bài viết:
           </label>
           <select
             onChange={(e) => dispatch(handleSelectCategoryText(e.target.value))}
             id="category"
-            className="border border-gray-400 outline-none select-none"
+            className="border border-gray-400 outline-none select-none dark:bg-black"
           >
-            <option value="Popular">Popular</option>
             <option value="Cuisine">Cuisine</option>
             <option value="Life">Life</option>
             <option value="Technology">Technology</option>
             <option value="Fashion">Fashion</option>
             <option value="Game">Game</option>
           </select>
-          <Category style="mb:block">{category}</Category>
+          <Category style="mb:block lg:mb-3">{category}</Category>
         </div>
       </div>
-      <div className="mb:flex mb:flex-col lg:grid lg:grid-cols-4 2xl:place-items-center 2xl:gap-y-0">
-        {data.length > 0 &&
-          data.map((post) => {
-            return <PostItem key={post.id} data={post}></PostItem>;
-          })}
-      </div>
+      {isFetchedData ? (
+        <div className="mb:flex mb:flex-row mb:flex-wrap mb:justify-evenly lg:gap-x-0 lg:flex lg:flex-row lg:flex-wrap lg:justify-start lg:gap-y-5 2xl:place-items-center 2xl:gap-y-0">
+          {data.length > 0 &&
+            data.map((post) => {
+              return <PostItem key={post.id} data={post}></PostItem>;
+            })}
+          <div className="mb:mb-5 mb:min-w-[185px]"></div>
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center mb:mt-[50px]">
+          <div
+            className="inline-block animate-spin mb:h-10 mb:w-10 lg:w-[50px] lg:h-[50px] text-blue-500 rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
+            role="status"
+          >
+            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"></span>
+          </div>
+          <span className="mt-4">Loading</span>
+        </div>
+      )}
+      {isFetchedData && data.length === 0 && (
+        <div className="flex flex-col justify-center items-center">
+          <img
+            className="mb:w-[180px] mb:h-[180px]"
+            src="https://www.blogger.com/img/pencilpotscissorsdesk.png"
+            alt="noPostImage"
+          />
+          <p className="text-lg">There are no posts</p>
+        </div>
+      )}
     </div>
   );
 };

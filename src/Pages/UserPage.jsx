@@ -3,18 +3,16 @@ import React from "react";
 import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
 import { useShowScrollbar } from "../hooks/useShowScrollbar";
-import { useSidebarContext } from "../Contexts/SidebarContext";
 import UserPageContent from "../Components/UserPageContent";
 
 const UserPage = () => {
   useShowScrollbar();
-  const { toggleSidebar } = useSidebarContext();
   return (
     <div>
-      <Header userImgStyle="lg:mr-8"></Header>
+      <Header userImgStyle="lg:mr-8" style="lg:mr-5"></Header>
       <div className="pt-[80px] flex">
         <Sidebar></Sidebar>
-        <UserPageContent toggleSidebar={toggleSidebar}></UserPageContent>
+        <UserPageContent></UserPageContent>
       </div>
     </div>
   );

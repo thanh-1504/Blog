@@ -1,16 +1,16 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSidebarContext } from "../Contexts/SidebarContext";
-
 const Sidebar = () => {
   const { toggleSidebar } = useSidebarContext();
+  const isDarkMode = localStorage.getItem("theme") === "dark";
+
   const navigae = useNavigate();
-  useEffect(() => {}, []);
   return (
     <div
-      className={`sidebar mb:-translate-x-full mb:shadow-2xl lg:shadow h-screen transition-all ease duration-500 mb:w-[60%] fixed mb:top-16 mb:left-0 lg:top-[60px] lg:w-[20%]  bg-white z-50 dark:bg-themeDark 2xl:w-[15%] ${
+      className={`sidebar mb:-translate-x-full mb:shadow-2xl lg:shadow h-screen transition-all ease duration-500 mb:w-[60%] fixed mb:top-16 mb:left-0 lg:top-[60px] lg:w-[19.5%]  bg-white z-50 dark:bg-themeDark 2xl:w-[15%] ${
         toggleSidebar
           ? "lg:translate-x-0"
           : "lg:-translate-x-full mb:translate-x-0"
@@ -39,7 +39,9 @@ const Sidebar = () => {
       <div className="mt-5 sidebar">
         <NavLink
           to="/"
-          className="flex items-center cursor-pointer hover:bg-[#eceff1] py-3 px-[50px] "
+          className={`flex items-center cursor-pointer ${
+            !isDarkMode && "hover:bg-[#eceff1]"
+          } py-3 px-[50px] `}
         >
           <svg
             className="w-6 h-6 mr-2"
@@ -56,7 +58,9 @@ const Sidebar = () => {
         </NavLink>
         <NavLink
           to="/discover"
-          className="flex items-center cursor-pointer hover:bg-[#eceff1] py-3 px-[50px]"
+          className={`flex items-center cursor-pointer ${
+            !isDarkMode && "hover:bg-[#eceff1]"
+          } py-3 px-[50px]`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -68,9 +72,29 @@ const Sidebar = () => {
           </svg>
           <span>Khám phá</span>
         </NavLink>
+        {window.innerWidth <= 480 && (
+          <NavLink
+            to={`/filter/${null}`}
+            className={`flex items-center cursor-pointer ${
+              !isDarkMode && "hover:bg-[#eceff1]"
+            } py-3 px-[50px] `}
+          >
+            <svg
+              className="w-5 h-5 mr-3"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
+              <path d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
+            </svg>
+            <span>Tìm kiếm</span>
+          </NavLink>
+        )}
         <NavLink
           to="/user"
-          className="flex items-center cursor-pointer hover:bg-[#eceff1] py-3 px-[50px] "
+          className={`flex items-center cursor-pointer ${
+            !isDarkMode && "hover:bg-[#eceff1]"
+          } py-3 px-[50px] `}
         >
           <svg
             className="w-5 h-5 mr-3"

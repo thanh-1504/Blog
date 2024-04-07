@@ -10,7 +10,7 @@ const MainPage = () => {
   window.innerWidth > 440 ? useShowScrollbar() : null;
   return (
     <>
-      <Header userImgStyle="lg:mr-10"></Header>
+      <Header userImgStyle="lg:mr-10" style="lg:mr-5"></Header>
       <div className="flex pt-[80px] w-full h-full  ">
         <Sidebar></Sidebar>
         <PostsMainPage></PostsMainPage>
