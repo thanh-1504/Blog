@@ -114,39 +114,6 @@ const SignInPage = () => {
       console.log(error);
     }
   };
-  useEffect(() => {
-    const handleSignInRedirect = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result.user) {
-          // Handle successful sign-in
-          const userInfo = {
-            id: result.user.uid,
-            email: result.user.email,
-            displayName: result.user.displayName,
-            photoURL: result.user.photoURL,
-          };
-          localStorage.setItem("user", JSON.stringify(userInfo));
-          toast("Logged in successfully", {
-            pauseOnHover: false,
-            autoClose: 1000,
-            type: "success",
-          });
-          navigate("/");
-        }
-      } catch (error) {
-        console.error(error.message);
-        // Handle sign-in error
-        toast("Error occurred while signing in", {
-          type: "error",
-          pauseOnHover: false,
-          autoClose: 2500,
-        });
-      }
-    };
-
-    handleSignInRedirect();
-  }, [auth, navigate]);
   return (
     <div className="relative w-full h-screen bg-[#f7f7f7] dark:bg-themeDark">
       {window.innerWidth > 480 && <BlogLogo style="ml-10 pt-6"></BlogLogo>}
