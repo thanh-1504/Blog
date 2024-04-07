@@ -115,33 +115,6 @@ const SignInPage = () => {
       console.log(error);
     }
   };
-  useEffect(() => {
-    const handleSignInRedirect = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result?.user) {
-          // Handle successful sign-in
-          const userInfo = {
-            id: result.user.uid,
-            email: result.user.email,
-            displayName: result.user.displayName,
-            photoURL: result.user.photoURL,
-          };
-          localStorage.setItem("user", JSON.stringify(userInfo));
-          toast("Logged in successfully", {
-            pauseOnHover: false,
-            autoClose: 1000,
-            type: "success",
-          });
-          navigate("/");
-        }
-      } catch (error) {
-        // Handle sign-in error
-        console.log(error);
-      }
-    };
-    handleSignInRedirect();
-  }, [navigate]);
 
   return (
     <div className="relative w-full h-screen bg-[#f7f7f7] dark:bg-themeDark">
