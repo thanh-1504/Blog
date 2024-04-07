@@ -51,7 +51,7 @@ const SignInPage = () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     try {
-      const userInfo = await signInWithRedirect(auth, provider);
+      const userInfo = await signInWithPopup(auth, provider);
       setTimeout(() => {
         toast("Logged in successfully", {
           pauseOnHover: false,
@@ -115,32 +115,6 @@ const SignInPage = () => {
       console.log(error);
     }
   };
-  useEffect(() => {
-    const handleRedirectSignIn = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result.user) {
-          // Xử lý thông tin người dùng ở đây
-          const user = result.user;
-          localStorage.setItem(
-            "user",
-            JSON.stringify({
-              id: user.uid,
-              email: user.email,
-              displayName: user.displayName,
-              photoURL: user.photoURL,
-            })
-          );
-          // Chuyển hướng đến trang chính sau khi đăng nhập thành công
-          navigate("/");
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    handleRedirectSignIn();
-  }, []);
-
   return (
     <div className="relative w-full h-screen bg-[#f7f7f7] dark:bg-themeDark">
       {window.innerWidth > 480 && <BlogLogo style="ml-10 pt-6"></BlogLogo>}
