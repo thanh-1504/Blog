@@ -19,6 +19,7 @@ import {
   getRedirectResult,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signInWithRedirect,
 } from "firebase/auth";
 const schema = yup.object({
   email: yup
@@ -50,7 +51,7 @@ const SignInPage = () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     try {
-      const userInfo = await signInWithPopup(auth, provider);
+      const userInfo = await signInWithRedirect(auth, provider);
       setTimeout(() => {
         toast("Logged in successfully", {
           pauseOnHover: false,
