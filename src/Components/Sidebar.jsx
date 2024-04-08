@@ -20,10 +20,10 @@ const Sidebar = () => {
         onClick={() =>
           hasUserInfo ? navigate("/add-post") : navigate("/sign-up")
         }
-        className="flex items-center mt-10 ml-auto mr-auto shadow-btnAddPostShadhow w-[170px] py-2 rounded-3xl cursor-pointer btn__addPost"
+        className="flex items-center justify-center mt-10 ml-auto mr-auto shadow-btnAddPostShadhow w-[170px] py-2 rounded-3xl cursor-pointer btn__addPost"
       >
         <svg
-          className="w-5 h-5 mx-2 "
+          className="w-5 h-5 mr-2 "
           xmlns="http://www.w3.org/2000/svg"
           fill="#f57c00"
           viewBox="0 0 448 512"
