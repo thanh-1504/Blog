@@ -35,7 +35,7 @@ const PostsMainPage = () => {
   }, [setToggleSidebar]);
   return (
     <div
-      style={handleShowSidebar(toggleSidebar, "/")}
+      style={window.innerWidth < 1500 ? handleShowSidebar(toggleSidebar, "/") : {}}
       onClick={(e) => {
         if (!e.currentTarget.matches("sidebar") && window.innerWidth <= 440)
           setToggleSidebar(true);

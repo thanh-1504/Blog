@@ -16,10 +16,8 @@ import {
 } from "../redux-thunk/Slices/signInSlice";
 import {
   GoogleAuthProvider,
-  getRedirectResult,
   signInWithEmailAndPassword,
   signInWithPopup,
-  signInWithRedirect,
 } from "firebase/auth";
 const schema = yup.object({
   email: yup
@@ -118,19 +116,19 @@ const SignInPage = () => {
 
   return (
     <div className="relative w-full h-screen bg-[#f7f7f7] dark:bg-themeDark">
-      {window.innerWidth > 480 && <BlogLogo style="ml-10 pt-6"></BlogLogo>}
+      {window.innerWidth > 480 && <BlogLogo style="ml-10 pt-6 "></BlogLogo>}
       <div
-        className={`absolute lg:shadow-authenticationShadow left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4 w-full max-w-[400px]  px-[30px]  dark:bg-[#f7f7f7] rounded dark:text-black ${
+        className={`absolute lg:shadow-authenticationShadow left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4 w-full max-w-[400px]  px-[30px]  rounded dark:text-black ${
           !errors.email && !errors.password ? "min-h-[450px]" : "min-h-[490px]"
         }`}
       >
         {window.innerWidth < 480 && (
           <div className="absolute left-2/4 -translate-x-[66%] flex items-center">
             <BlogLogo style="mr-4 w-[60px] h-[60px] max-w-none"></BlogLogo>
-            <span className="text-3xl font-bold min-w-[180px]">My Blogger</span>
+            <span className="text-3xl font-bold min-w-[180px] dark:text-white">My Blogger</span>
           </div>
         )}
-        <p className="font-bold lg:text-3xl mb:text-2xl mb-5 lg:mt-[52px] mb:mt-[100px] select-none text-black">
+        <p className="font-bold lg:text-3xl mb:text-2xl mb-5 lg:mt-[52px] mb:mt-[100px] select-none text-black dark:text-white">
           Sign in
         </p>
         <form
@@ -143,14 +141,14 @@ const SignInPage = () => {
             name="email"
             type="text"
             placeholder="Email"
-            className={`p-2 outline-none border-[1.5px] border-black ${
+            className={`p-2 outline-none border-[1.5px] border-black dark:bg-black dark:text-white dark:border-white ${
               !errors?.email && "mb-5"
             } rounded-md`}
           />
           {errors?.email && (
             <span className="text-red-500 my-2">{errors.email.message}</span>
           )}
-          <div className="relative p-2 border-[1.5px] border-black rounded-md">
+          <div className="relative p-2 border-[1.5px] border-black rounded-md dark:border-white">
             <input
               name="password"
               {...register("password")}
@@ -161,7 +159,7 @@ const SignInPage = () => {
               }
               type={changeTypeInput ? "text" : "password"}
               placeholder="Password"
-              className="outline-none w-[85%] "
+              className="outline-none w-[85%] dark:bg-black dark:text-white"
             />
             {showPassWord && (
               <span
@@ -190,10 +188,10 @@ const SignInPage = () => {
             Sign in
           </button>
           <div className="line ">
-            <p className="line-text">or</p>
+            <p className="line-text dark:bg-black dark:text-white">or</p>
           </div>
         </form>
-        <div className="flex items-center justify-center border-[1.5px] border-black py-2 rounded-lg ">
+        <div className="flex items-center justify-center border-[1.5px] border-black py-2 rounded-lg dark:bg-white">
           <svg
             className="w-6 h-6 mr-2"
             xmlns="http://www.w3.org/2000/svg"

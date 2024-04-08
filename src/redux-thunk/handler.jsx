@@ -183,7 +183,7 @@ export const handleGetViewedPost = createAsyncThunk(
         });
       });
       const listViewedPost = viewed.filter((user) => user.userId === userId)[0]
-        .idPosts;
+        ?.idPosts;
       dispatch(
         handleGetDataViewedPosts(
           dataViewedPost.filter((post) => listViewedPost.includes(post.id))

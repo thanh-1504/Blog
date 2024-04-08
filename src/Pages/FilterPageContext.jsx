@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useId, useState } from "react";
+import React, {  useState } from "react";
 import PostItemFilter from "../Components/Post/PostItemFilter";
 import { useDispatch } from "react-redux";
 import { handleGetDataFilterPost } from "../redux-thunk/handler";
 import PostItem from "../Components/Post/PostItem";
 const FilterPageContext = ({ data, isFetchedData }) => {
-  const idFilterPost = useId();
   const [valueSearch, setValueSearch] = useState("");
   const dispatch = useDispatch();
   return (
@@ -58,14 +57,15 @@ const FilterPageContext = ({ data, isFetchedData }) => {
           </div>
         ) : (
           data.length > 0 && (
-            <div className="mb:flex mb:flex-row mb:flex-wrap mb:justify-evenly mb:gap-y-3 mb:mt-3 lg:mt-5 lg:block">
+            <div className="mb:flex mb:flex-row mb:flex-wrap mb:justify-evenly mb:gap-y-3 mb:mt-3 lg:mt-5 lg:block ">
               {data.map((post) => {
                 return (
                   <PostItem
-                    style="lg:flex lg:items-center lg:min-w-[400px] lg:max-w-[550px] lg:mb-3"
-                    styleText="lg:ml-5"
+                  style="lg:flex lg:items-center lg:min-w-[400px] lg:max-w-[550px] lg:mb-3 2xl:max-w-none 2xl:min-h-0"
+                  styleImg="2xl:max-w-[350px] 2xl:min-h-[200px] 2xl:max-h-[200px]"
+                    styleTextWrap="lg:ml-5 2xl:min-w-[480px] 2xl:max-w-[481px]"
                     data={post}
-                    key={idFilterPost}
+                    key={data.id}
                   ></PostItem>
                 );
               })}

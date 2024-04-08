@@ -37,7 +37,7 @@ const PostMainPageItem = ({ data }) => {
         />
         <div>
           <div className="flex">
-            <p className="mb-2 mb:line-clamp-2 lg:line-clamp-1 lg:max-w-96 mb:min-w-[172px]">
+            <p className="mb-2 mb:line-clamp-2 lg:line-clamp-1 lg:max-w-96 mb:min-w-[175px] mb:max-w-[175px] border-[#cccccc]">
               {title}
             </p>
             {window.innerWidth <= 440 && (
@@ -50,7 +50,8 @@ const PostMainPageItem = ({ data }) => {
                   }
                 >
                   <svg
-                    className="w-5 h-5 ml-5 mr-2 management-iconSvg"
+                  fill="#808080"
+                    className="w-5 h-5 ml-5 mr-2 management-iconSvg "
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 128 512"
                   >
@@ -64,10 +65,10 @@ const PostMainPageItem = ({ data }) => {
                   ref={postManagementRef}
                   className="w-[168px] shadow-xl absolute right-[-0.8rem] bg-white opacity-0 invisible transition-all"
                 >
-                  <li onClick={() => navigate(`/${category}/${id}`)}>
+                  <li className="dark:text-black" onClick={() => navigate(`/${category}/${id}`)}>
                     <span className="block p-2 text-center hover:bg-gray-200">
                       <svg
-                        className="inline w-3 h-3 mr-2"
+                        className="inline w-3 h-3 mr-2 "
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 576 512"
                       >
@@ -77,6 +78,7 @@ const PostMainPageItem = ({ data }) => {
                     </span>
                   </li>
                   <li
+                  className="dark:text-black"
                     onClick={() => {
                       dispatch(
                         handleDeletePost({
@@ -98,7 +100,7 @@ const PostMainPageItem = ({ data }) => {
                       Xóa
                     </span>
                   </li>
-                  <li onClick={() => navigate(`/edit/${id}`)}>
+                  <li onClick={() => navigate(`/edit/${id}`)} className="dark:text-black">
                     <span className="block p-2 text-center hover:bg-gray-200">
                       <svg
                         className="inline w-3 h-3 mr-2"

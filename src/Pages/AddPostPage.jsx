@@ -62,7 +62,7 @@ const AddPostPage = () => {
             category: values.category,
             imgURL:
               imgPost ||
-              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
+              "https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg",
             content: content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
@@ -75,7 +75,7 @@ const AddPostPage = () => {
             category: values.category,
             imgURL:
               imgPost ||
-              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
+              "https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg",
             content: content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
@@ -106,7 +106,7 @@ const AddPostPage = () => {
             category: values.category,
             imgURL:
               imgPost ||
-              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
+              "https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg",
             content: content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
@@ -119,7 +119,7 @@ const AddPostPage = () => {
             category: values.category,
             imgURL:
               imgPost ||
-              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
+              "https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg",
             content: content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
@@ -150,7 +150,7 @@ const AddPostPage = () => {
             category: values.category,
             imgURL:
               imgPost ||
-              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
+              "https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg",
             content: content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
@@ -163,7 +163,7 @@ const AddPostPage = () => {
             category: values.category,
             imgURL:
               imgPost ||
-              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
+              "https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg",
             content: content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
@@ -193,7 +193,7 @@ const AddPostPage = () => {
             author: values.author,
             imgURL:
               imgPost ||
-              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
+              "https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg",
             content: content,
             category: values.category,
             dateCreated: serverTimestamp(),
@@ -207,7 +207,7 @@ const AddPostPage = () => {
             category: values.category,
             imgURL:
               imgPost ||
-              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
+              "https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg",
             content: content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),
@@ -237,7 +237,7 @@ const AddPostPage = () => {
             author: values.author,
             imgURL:
               imgPost ||
-              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
+              "https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg",
             category: values.category,
             content: content,
             dateCreated: serverTimestamp(),
@@ -251,7 +251,7 @@ const AddPostPage = () => {
             category: values.category,
             imgURL:
               imgPost ||
-              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
+              "https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg",
             content: content,
             dateCreated: serverTimestamp(),
             dateCreatedInSeconds: date.getMilliseconds(),

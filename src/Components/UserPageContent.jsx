@@ -56,8 +56,8 @@ const UserPageContent = () => {
         if (!e.currentTarget.matches("sidebar") && window.innerWidth <= 440)
           setToggleSidebar(true);
       }}
-      className={`2xl:w-full w-full h-screen lg:pl-0 transition-all ease-linear duration-300 2xl:ml-10 lg:ml-[260px] ${
-        toggleSidebar ? "2xl:pl-0" : "2xl:pl-0 w-full "
+      className={`2xl:w-full w-full h-screen lg:pl-0 transition-all ease-linear duration-300 lg:ml-[260px] ${
+        toggleSidebar ? "2xl:ml-[296px]" : "2xl:pl-0 w-full "
       }`}
     >
       <div className="mt-8 mb-4 mb:ml-2 lg:ml-0 2xl:ml-0 ">
@@ -117,7 +117,7 @@ const UserPageContent = () => {
           ) : (
             dataViewedPost.length > 0 &&
             dataViewedPost.map((post) => {
-              return <PostItem key={post.id} data={post}></PostItem>;
+              return <PostItem key={post.id} data={post} style='2xl:max-w-[334px] 2xl:min-w-[334px]' styleImg="2xl:max-h-[180px]"></PostItem>;
             })
           )}
           <div className="mb:mb-5 mb:min-w-[185px]"></div>
@@ -127,14 +127,14 @@ const UserPageContent = () => {
         <div className="mb:flex mb:flex-row mb:flex-wrap mb:justify-evenly lg:flex lg:flex-row lg:flex-wrap lg:gap-y-5 lg:justify-start 2xl:place-items-center 2xl:gap-y-0">
           {dataSavedPosts.length > 0 ? (
             dataSavedPosts.map((post) => {
-              return <PostItem key={post.id} data={post}></PostItem>;
+              return <PostItem key={post.id} data={post} style='2xl:max-w-[334px] 2xl:min-w-[334px]' styleImg="2xl:max-h-[180px]"></PostItem>;
             })
           ) : (
             <div className="flex flex-col justify-center items-center w-full mb:mt-10">
               <img
                 className="mb:w-[150px] mb:h-[150px]"
                 src="https://www.blogger.com/img/pencilpotscissorsdesk.png"
-                alt=""
+                alt="image"
               />
               <p>There are no saved posts</p>
             </div>

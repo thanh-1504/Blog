@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSidebarContext } from "../Contexts/SidebarContext";
 const Sidebar = () => {
   const { toggleSidebar } = useSidebarContext();
   const isDarkMode = localStorage.getItem("theme") === "dark";
-
   const navigae = useNavigate();
   return (
     <div

@@ -43,8 +43,8 @@ const DiscoverPageContext = ({ showSidebar }) => {
         if (!e.currentTarget.matches("sidebar") && window.innerWidth <= 440)
           setToggleSidebar(true);
       }}
-      className={`w-full h-screen transition-all ease-linear duration-300 2xl:ml-6 lg:px-0 ${
-        showSidebar ? "lg:ml-[260px]" : `lg:w-full`
+      className={`w-full h-screen transition-all ease-linear duration-300 lg:px-0 ${
+        showSidebar ? "lg:ml-[260px] 2xl:ml-[296px]" : `lg:w-full`
       }  `}
     >
       <div className="lg:flex lg:items-center mb:block lg:mt-10 mb:mt-5 ml-1 justify-between max-w-[970px]">
@@ -70,7 +70,7 @@ const DiscoverPageContext = ({ showSidebar }) => {
         <div className="mb:flex mb:flex-row mb:flex-wrap mb:justify-evenly lg:gap-x-0 lg:flex lg:flex-row lg:flex-wrap lg:justify-start lg:gap-y-5 2xl:place-items-center 2xl:gap-y-0">
           {data.length > 0 &&
             data.map((post) => {
-              return <PostItem key={post.id} data={post}></PostItem>;
+              return <PostItem style='2xl:max-w-[334px] 2xl:min-w-[334px]' styleImg="2xl:max-h-[180px]" key={post.id} data={post}></PostItem>;
             })}
           <div className="mb:mb-5 mb:min-w-[185px]"></div>
         </div>
