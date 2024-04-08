@@ -3,29 +3,20 @@
 import React, { useEffect, useState } from "react";
 import PostItem from "./Post/PostItem";
 import Category from "./Category";
+import { useSidebarContext } from "../Contexts/SidebarContext";
 import { useDispatch, useSelector } from "react-redux";
+import { handleSelectCategoryText } from "../redux-thunk/Slices/discoverSlice";
 import {
-  handleGetDataDiscover,
-  handleSelectCategoryText,
-} from "../redux-thunk/Slices/discoverSlice";
-import {
-  handleFetchDataDiscoverPage,
+  handleGetDataDiscoverPage,
   handleShowSidebar,
 } from "../redux-thunk/handler";
-import { useSidebarContext } from "../Contexts/SidebarContext";
-const DiscoverPageContext = ({ showSidebar }) => {
+const DiscoverPageContent = ({ showSidebar }) => {
   const dispatch = useDispatch();
   const [isFetchedData, setIsFetchedData] = useState(false);
-  const { category, data } = useSelector((state) => state.discover);
   let { toggleSidebar, setToggleSidebar } = useSidebarContext();
+  const { category, data } = useSelector((state) => state.discover);
   useEffect(() => {
-    async function fetchData() {
-      const response = await dispatch(handleFetchDataDiscoverPage(category));
-      const data = response.payload;
-      dispatch(handleGetDataDiscover(data));
-      setIsFetchedData(true);
-    }
-    fetchData();
+    dispatch(handleGetDataDiscoverPage({ category, setIsFetchedData }));
     return () => {
       setIsFetchedData(false);
       setToggleSidebar(true);
@@ -50,7 +41,7 @@ const DiscoverPageContext = ({ showSidebar }) => {
       <div className="lg:flex lg:items-center mb:block lg:mt-10 mb:mt-5 ml-1 justify-between max-w-[970px]">
         <div className="lg:mr-[80px] mb:mb-5  mb:ml-3 lg:ml-0 lg:mb-0">
           <label className="mr-2 select-none" htmlFor="category">
-            Phân loại bài viết:
+          Categorize posts
           </label>
           <select
             onChange={(e) => dispatch(handleSelectCategoryText(e.target.value))}
@@ -70,7 +61,14 @@ const DiscoverPageContext = ({ showSidebar }) => {
         <div className="mb:flex mb:flex-row mb:flex-wrap mb:justify-evenly lg:gap-x-0 lg:flex lg:flex-row lg:flex-wrap lg:justify-start lg:gap-y-5 2xl:place-items-center 2xl:gap-y-0">
           {data.length > 0 &&
             data.map((post) => {
-              return <PostItem style='2xl:max-w-[334px] 2xl:min-w-[334px]' styleImg="2xl:max-h-[180px]" key={post.id} data={post}></PostItem>;
+              return (
+                <PostItem
+                  style="2xl:max-w-[334px] 2xl:min-w-[334px]"
+                  styleImg="2xl:max-h-[180px]"
+                  key={post.id}
+                  data={post}
+                ></PostItem>
+              );
             })}
           <div className="mb:mb-5 mb:min-w-[185px]"></div>
         </div>
@@ -86,7 +84,7 @@ const DiscoverPageContext = ({ showSidebar }) => {
         </div>
       )}
       {isFetchedData && data.length === 0 && (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col items-center justify-center">
           <img
             className="mb:w-[180px] mb:h-[180px]"
             src="https://www.blogger.com/img/pencilpotscissorsdesk.png"
@@ -99,4 +97,4 @@ const DiscoverPageContext = ({ showSidebar }) => {
   );
 };
 
-export default DiscoverPageContext;
+export default DiscoverPageContent;

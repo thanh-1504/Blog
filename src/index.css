@@ -96,6 +96,7 @@ body {
   .ql-editor {
     max-height: 70%;
     overflow: auto;
+    color: black;
   }
 }
 @media only screen and (max-width: 441px) {

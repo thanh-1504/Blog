@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import PostItemFilter from "../Components/Post/PostItemFilter";
+import PostItem from "../Components/Post/PostItem";
 import { useDispatch } from "react-redux";
 import { handleGetDataFilterPost } from "../redux-thunk/handler";
-import PostItem from "../Components/Post/PostItem";
-const FilterPageContext = ({ data, isFetchedData }) => {
-  const [valueSearch, setValueSearch] = useState("");
+const FilterPageContent = ({ data, isFetchedData }) => {
   const dispatch = useDispatch();
+  const [valueSearch, setValueSearch] = useState("");
   return (
     <div className="w-full min-h-screen pt-[100px] flex justify-center overflow-hidden dark:bg-themeDark">
       <div className="w-full max-w-[1000px] bg-white rounded-md lg:pl-10 dark:bg-themeDark">
@@ -29,7 +29,7 @@ const FilterPageContext = ({ data, isFetchedData }) => {
                   );
                 }
               }}
-              placeholder="Tìm kiếm bài đăng"
+              placeholder="Search posts"
               className="outline-none bg-[#eceff1] w-full text-black"
               type="text"
             />
@@ -61,8 +61,8 @@ const FilterPageContext = ({ data, isFetchedData }) => {
               {data.map((post) => {
                 return (
                   <PostItem
-                  style="lg:flex lg:items-center lg:min-w-[400px] lg:max-w-[550px] lg:mb-3 2xl:max-w-none 2xl:min-h-0"
-                  styleImg="2xl:max-w-[350px] 2xl:min-h-[200px] 2xl:max-h-[200px]"
+                    style="lg:flex lg:items-center lg:min-w-[400px] lg:max-w-[550px] lg:mb-3 2xl:max-w-none 2xl:min-h-0"
+                    styleImg="2xl:max-w-[350px] 2xl:min-h-[200px] 2xl:max-h-[200px]"
                     styleTextWrap="lg:ml-5 2xl:min-w-[480px] 2xl:max-w-[481px]"
                     data={post}
                     key={data.id}
@@ -78,4 +78,4 @@ const FilterPageContext = ({ data, isFetchedData }) => {
   );
 };
 
-export default FilterPageContext;
+export default FilterPageContent;

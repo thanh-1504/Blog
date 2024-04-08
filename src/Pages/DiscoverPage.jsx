@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
+import Sidebar from "../Components/Sidebar";
 import React from "react";
 import Header from "../Components/Header";
-import Sidebar from "../Components/Sidebar";
-import { useShowScrollbar } from "../hooks/useShowScrollbar";
+import DiscoverPageContent from "../Components/DiscoverPageContent";
 import { useSidebarContext } from "../Contexts/SidebarContext";
-import DiscoverPageContext from "../Components/DiscoverPageContent";
+import { useShowScrollbar } from "../hooks/useShowScrollbar";
 
 const DiscoverPage = () => {
   useShowScrollbar();
@@ -12,12 +12,12 @@ const DiscoverPage = () => {
   return (
     <div>
       <div className="pt-[80px]">
-        <div className="lg:flex w-full h-full">
+        <div className="w-full h-full lg:flex">
           <Header userImgStyle="lg:mr-8" style="lg:mr-5"></Header>
           <Sidebar></Sidebar>
-          <DiscoverPageContext
+          <DiscoverPageContent
             showSidebar={toggleSidebar}
-          ></DiscoverPageContext>
+          ></DiscoverPageContent>
         </div>
       </div>
     </div>

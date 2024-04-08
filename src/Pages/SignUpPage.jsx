@@ -1,22 +1,22 @@
 /* eslint-disable no-unused-vars */
-import React, { useRef } from "react";
+import React from "react";
 import BlogLogo from "../Components/BlogLogo";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import { auth } from "../firebaseConfig";
+import {
+  handleChangeToInputText,
+  handleShowPassWord,
+} from "../redux-thunk/Slices/signUpSlice";
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { auth } from "../firebaseConfig";
-import { ToastContainer, toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  handleChangeToInputText,
-  handleShowPassWord,
-} from "../redux-thunk/Slices/signUpSlice";
 const schema = yup.object({
   email: yup
     .string()
@@ -30,8 +30,8 @@ const schema = yup.object({
 });
 const SignUpPage = () => {
   const navigate = useNavigate();
-  let { showPassWord, changeTypeInput } = useSelector((state) => state.signUp);
   const dispatch = useDispatch();
+  let { showPassWord, changeTypeInput } = useSelector((state) => state.signUp);
   const {
     handleSubmit,
     register,
@@ -41,15 +41,21 @@ const SignUpPage = () => {
     resolver: yupResolver(schema),
     mode: "onSubmit",
   });
-
   const handleSignInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     try {
       const userInfo = await signInWithPopup(auth, provider);
       setTimeout(() => {
+        toast("Logged in successfully", {
+          pauseOnHover: false,
+          autoClose: 1000,
+          type: "success",
+        });
+      }, 1000);
+      setTimeout(() => {
         navigate("/");
-      }, 1500);
+      }, 3000);
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -96,22 +102,21 @@ const SignUpPage = () => {
       console.log(error);
     }
   };
-
   return (
     <div className="relative w-full h-screen bg-[#f7f7f7] dark:bg-themeDark">
       {window.innerWidth > 480 && <BlogLogo style="ml-10 pt-6"></BlogLogo>}
       <div
-        className={`absolute lg:shadow-authenticationShadow  left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4  w-full max-w-[400px]  px-[30px] min-h-[450px] dark:bg-[#f7f7f7] rounded dark:text-black ${
+        className={`absolute lg:shadow-authenticationShadow  left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4  w-full max-w-[400px]  px-[30px] min-h-[450px] rounded dark:text-black ${
           !errors.email && !errors.password ? "min-h-[450px]" : "min-h-[490px]"
         }`}
       >
         {window.innerWidth < 480 && (
           <div className="absolute left-2/4 -translate-x-[66%] flex items-center">
             <BlogLogo style="mr-4 w-[60px] h-[60px] max-w-none"></BlogLogo>
-            <span className="text-3xl font-bold min-w-[180px]">My Blogger</span>
+            <span className="text-3xl font-bold min-w-[180px] dark:text-white">My Blogger</span>
           </div>
         )}
-        <p className="font-bold text-2xl mb-5 lg:mt-[52px] mb:mt-[100px] select-none">
+        <p className="font-bold lg:text-3xl mb:text-2xl mb-5 lg:mt-[52px] mb:mt-[100px] select-none text-black dark:text-white">
           Sign up
         </p>
         <form
@@ -123,14 +128,14 @@ const SignUpPage = () => {
             {...register("email")}
             type="text"
             placeholder="Email"
-            className={`p-2 outline-none border-[1.5px] border-black rounded-md ${
+            className={`p-2 outline-none border-[1.5px] border-black dark:bg-black dark:text-white dark:border-white rounded-md ${
               !errors?.email && "mb-5"
             }`}
           />
           {errors?.email && (
-            <span className="text-red-500 my-2">{errors.email.message}</span>
+            <span className="my-2 text-red-500">{errors.email.message}</span>
           )}
-          <div className="relative p-2 border-[1.5px] border-black rounded-md">
+          <div className="relative p-2 border-[1.5px] border-black rounded-md dark:border-white">
             <input
               name="password"
               {...register("password")}
@@ -141,7 +146,7 @@ const SignUpPage = () => {
               }
               type={changeTypeInput ? "text" : "password"}
               placeholder="Password"
-              className=" outline-none w-[85%] "
+              className="outline-none w-[85%] dark:bg-black dark:text-white"
             />
             {showPassWord && (
               <span
@@ -155,11 +160,11 @@ const SignUpPage = () => {
             )}
           </div>
           {errors?.password && (
-            <span className="text-red-500 mt-2">{errors.password.message}</span>
+            <span className="mt-2 text-red-500">{errors.password.message}</span>
           )}
           <p
             onClick={() => navigate("/sign-in")}
-            className="my-3 ml-auto cursor-pointer select-none"
+            className="my-3 ml-auto cursor-pointer select-none dark:text-gray-400"
           >
             Already have an account?
           </p>
@@ -170,10 +175,13 @@ const SignUpPage = () => {
             Sign up
           </button>
           <div className="line ">
-            <p className="line-text">or</p>
+            <p className="line-text dark:bg-black dark:text-white">or</p>
           </div>
         </form>
-        <div className="flex items-center justify-center border-[1.5px] border-black py-2 rounded-lg ">
+        <div
+          onClick={handleSignInWithGoogle}
+          className="flex items-center cursor-pointer justify-center border-[1.5px] border-black py-2 rounded-lg dark:bg-white"
+        >
           <svg
             className="w-6 h-6 mr-2"
             xmlns="http://www.w3.org/2000/svg"
@@ -200,7 +208,7 @@ const SignUpPage = () => {
               d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
             ></path>
           </svg>
-          <button onClick={handleSignInWithGoogle}>Sign up with Google</button>
+          <button>Sign up with Google</button>
         </div>
       </div>
       <ToastContainer className="mobile-toast-container" />

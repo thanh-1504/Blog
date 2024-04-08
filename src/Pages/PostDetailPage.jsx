@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import PostItem from "../Components/Post/PostItem";
+import parse from "html-react-parser";
 import Header from "../Components/Header";
 import { useParams } from "react-router-dom";
 import { useFormatDate } from "../hooks/useFormatDate";
@@ -10,13 +11,13 @@ import {
   handleGetSamePost,
   handleSavedPost,
 } from "../redux-thunk/handler";
-import parse from "html-react-parser";
 const PostDetail = () => {
   window.scrollTo(0, 0);
+  const dispatch = useDispatch();
   const { idPost, page } = useParams();
+  const [savedPost, setSavedPost] = useState(false);
   const { data, dataSamePost } = useSelector((state) => state.detailPage);
   const { day, month, year } = useFormatDate(data?.dateCreated);
-  const [savedPost, setSavedPost] = useState(false);
   const isSavedPost =
     JSON.parse(localStorage.getItem("savedPost"))
       ?.find(
@@ -24,7 +25,6 @@ const PostDetail = () => {
           item?.userId === JSON.parse(localStorage.getItem("user"))?.id || null
       )
       ?.idPostsSaved.includes(idPost) || false;
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(handleGetDataDetailPage({ idPost, page }));
     return () => {
@@ -94,7 +94,9 @@ const PostDetail = () => {
                   <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z" />
                 </svg>
                 {window.innerWidth > 440 && (
-                  <span className="dark:text-black">{isSavedPost ? "Post Saved" : "Save Post"}</span>
+                  <span className="dark:text-black">
+                    {isSavedPost ? "Post Saved" : "Save Post"}
+                  </span>
                 )}
               </button>
             </div>
@@ -102,11 +104,9 @@ const PostDetail = () => {
           </div>
         </div>
         <div className="relative mb:pb-[250px] lg:pb-[150px] z-50 w-full h-full lg:px-16 lg:bottom-0 lg:mt-[280px] mb:bottom-[-180px] ">
-          <div className="w-full h-auto bg-white shadow-2xl lg:px-10 rounded-xl dark:bg-black py-6">
+          <div className="w-full h-auto py-6 bg-white shadow-2xl lg:px-10 rounded-xl dark:bg-black">
             <h2 className="mb-3 font-bold lg:text-4xl mb:text-2xl mb:ml-2 lg:ml-0 dark:text-white">
-           
-              Bài viết liên quan
-
+              Related articles
             </h2>
             <>
               {dataSamePost.length > 0 ? (

@@ -1,12 +1,15 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import EditorToolbar, { modules, formats } from "../Components/EditorToolbar";
-import { useShowScrollbar } from "../hooks/useShowScrollbar";
+import React, { useEffect, useState } from "react";
 import Header from "../Components/Header";
-import { db, handleSendImgToFirebase } from "../firebaseConfig";
+import EditorToolbar, { modules, formats } from "../Components/EditorToolbar";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import { handleShowSettingPost } from "../redux-thunk/Slices/generalSlice";
+import { db, handleSendImgToFirebase } from "../firebaseConfig";
+import "react-quill/dist/quill.snow.css";
 import {
   addDoc,
   collection,
@@ -14,25 +17,25 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
-import { ToastContainer, toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { handleShowSettingPost } from "../redux-thunk/Slices/generalSlice";
-import { useNavigate } from "react-router-dom";
 const AddPostPage = () => {
-  // useShowScrollbar();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { handleSubmit, register, watch } = useForm();
-  const category = watch("category");
-  let [content, setContent] = useState("");
   let [img, setImg] = useState("");
+  let [content, setContent] = useState("");
+  const { handleSubmit, register, watch } = useForm();
   const userId = JSON.parse(localStorage.getItem("user"))?.id;
   const { showSettingPost } = useSelector((state) => state.general);
+  const category = watch("category");
   useEffect(() => {
     return () => {
       dispatch(handleShowSettingPost(false));
     };
   }, [dispatch]);
+  const handleSelectedImg = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setImg(file);
+  };
   const handleSubmitForm = async (values) => {
     const date = new Date();
     if (!category) {
@@ -277,12 +280,6 @@ const AddPostPage = () => {
         break;
     }
   };
-  const handleSelectedImg = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setImg(file);
-  };
-
   return (
     <div className="w-full h-full">
       <Header hasSearchInput={false} hasSidebar={false}></Header>
@@ -293,7 +290,7 @@ const AddPostPage = () => {
         <div className="flex items-center mb:px-3 lg:px-0">
           <input
             {...register("title")}
-            placeholder="Tiêu đề bài viết"
+            placeholder="Post title"
             type="text"
             className="w-[80%] outline-none  border-b-orange-300 border-b-2 focus:border-b-orange-400 transition-all dark:bg-themeDark"
           />
@@ -309,9 +306,9 @@ const AddPostPage = () => {
             >
               <path d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z" />
             </svg>
-            {window.innerWidth > 440 && "Xuất bản"}
+            {window.innerWidth > 480 && "Publish"}
           </button>
-          {window.innerWidth <= 440 && (
+          {window.innerWidth <= 480 && (
             <div className="relative p-3 ml-3 border border-gray-300 dark:bg-gray-100">
               <svg
                 onClick={() => {
@@ -328,7 +325,7 @@ const AddPostPage = () => {
                   showSettingPost ? "translate-x-0" : "translate-x-[130%]"
                 }`}
               >
-                <span>Cài đặt bài đăng</span>
+                <span>Post settings</span>
                 <svg
                   onClick={() => dispatch(handleShowSettingPost(false))}
                   className="inline-block float-right w-5 h-5 mr-8"
@@ -339,24 +336,24 @@ const AddPostPage = () => {
                 </svg>
                 <form>
                   <label htmlFor="name-author" className="block mt-2 mb-1 ">
-                    Tên tác giả
+                    Author's name
                   </label>
                   <input
                     {...register("author")}
                     type="text"
-                    placeholder="Nhập tên tác giả"
+                    placeholder="Author's name"
                     className="outline-none border-transparent border-b border-b-orange-500 mb-2 w-[80%] dark:bg-themeDark"
                     id="name-author"
                   />
                   <label htmlFor="category" className="block mb-1">
-                    Thể loại bài viết
+                    Post category
                   </label>
                   <div className="custom-select">
                     <select
                       className="select--category"
                       {...register("category")}
                     >
-                      <option value="">Chọn thể loại</option>
+                      <option value="">Select category</option>
                       <option value="Cuisine">Cuisine</option>
                       <option value="Life">Life</option>
                       <option value="Technology">Technology</option>
@@ -365,7 +362,7 @@ const AddPostPage = () => {
                     </select>
                   </div>
                   <label htmlFor="imgPost" className="block mt-2 mb-1">
-                    Ảnh bài viết
+                    Post photo
                   </label>
                   <div className="file-upload w-[80%]">
                     <img
@@ -405,36 +402,36 @@ const AddPostPage = () => {
           </div>
           <div className="dark:bg-themeDark h-full lg:mt-[20px] mb:mt-2 flex">
             <ReactQuill
-              placeholder="Nội dung bài viết"
+              placeholder="Content"
               onChange={setContent}
               value={content}
               theme="snow"
               modules={modules("t1")}
               formats={formats}
             ></ReactQuill>
-            {window.innerWidth > 440 && (
-              <div className=" bg-white shadow-2xl ml-10 w-[25%] pl-5 text-settingPostText 2xl:pt-5 dark:bg-themeDark">
-                <span className="">Cài đặt bài đăng</span>
+            {window.innerWidth > 480 && (
+              <div className="bg-white shadow-2xl ml-10 w-[25%] pl-5 text-settingPostText 2xl:pt-5 dark:bg-themeDark dark:border-l ">
+                <span className="lg:text-xl">Post settings</span>
                 <form>
                   <label htmlFor="name-author" className="block mt-2 mb-1">
-                    Tên tác giả
+                    Author's name
                   </label>
                   <input
                     {...register("author")}
                     type="text"
-                    placeholder="Nhập tên tác giả"
-                    className="outline-none border-transparent border-b border-b-orange-500 mb-2 w-[80%] dark:bg-themeDark"
+                    placeholder="Author's name"
+                    className="outline-none border-transparent border-b border-b-orange-500 mb-2 w-[80%] dark:bg-themeDark dark:text-white placeholder:text-sm"
                     id="name-author"
                   />
                   <label htmlFor="category" className="block mb-1">
-                    Thể loại bài viết
+                    Post category
                   </label>
                   <div className="custom-select">
                     <select
                       className="select--category"
                       {...register("category")}
                     >
-                      <option value="">Chọn thể loại</option>
+                      <option value="">Select category</option>
                       <option value="Cuisine">Cuisine</option>
                       <option value="Life">Life</option>
                       <option value="Technology">Technology</option>
@@ -443,7 +440,7 @@ const AddPostPage = () => {
                     </select>
                   </div>
                   <label htmlFor="imgPost" className="block mt-2 mb-1">
-                    Ảnh bài viết
+                    Post photo
                   </label>
                   <div className="file-upload w-[80%]">
                     <img

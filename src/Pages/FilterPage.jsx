@@ -1,18 +1,21 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import FilterPageContext from "./FilterPageContext";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { handleGetDataFilterPost } from "../redux-thunk/handler";
 import Header from "../Components/Header";
+import FilterPageContent from "./FilterPageContext";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { handleGetDataFilterPost } from "../redux-thunk/handler";
 const FilterPage = () => {
-  const { titlePost } = useParams();
   const dispatch = useDispatch();
+  const { titlePost } = useParams();
+  const [isFetchedData, setIsFetchedData] = useState(false);
   const { data } = useSelector((state) => state.filterPosts);
-  const [isFetchedData,setIsFetchedData] = useState(false)
   useEffect(() => {
     dispatch(handleGetDataFilterPost(titlePost));
-    setIsFetchedData(true)
+    setIsFetchedData(true);
+    return () => {
+      setIsFetchedData(false);
+    };
   }, [dispatch, titlePost]);
   return (
     <div className="bg-[#f1f1f1]">
@@ -22,7 +25,10 @@ const FilterPage = () => {
         userImgStyle="mr-0"
         style="lg:px-10"
       ></Header>
-      <FilterPageContext data={data} isFetchedData={isFetchedData}></FilterPageContext>
+      <FilterPageContent
+        data={data}
+        isFetchedData={isFetchedData}
+      ></FilterPageContent>
     </div>
   );
 };

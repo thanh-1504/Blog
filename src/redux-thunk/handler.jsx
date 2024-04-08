@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -9,7 +8,6 @@ import {
   getDocs,
   limit,
   onSnapshot,
-  orderBy,
   query,
   setDoc,
   where,
@@ -17,6 +15,7 @@ import {
 import { db } from "../firebaseConfig";
 import Swal from "sweetalert2";
 import { handleGetData, handleGetDataSamePost } from "./Slices/detailPage";
+import { handleGetData as handleGetUserDataOnMainPage } from "./Slices/postMainPageSlice";
 import {
   handleGetDataSavedPosts,
   handleGetDataViewedPosts,
@@ -24,7 +23,7 @@ import {
 import { requestDataFromUserPost } from "./request";
 import { handleGetDataEditPost } from "./Slices/postEditSlice";
 import { handleGetDataFilterInput } from "./Slices/filterPostsSlice";
-import { useNavigate } from "react-router-dom";
+import { handleGetDataDiscover } from "./Slices/discoverSlice";
 export const handleDeletePost = createAsyncThunk(
   "deletePost",
   ({ idPost, page, samePage }) => {
@@ -116,6 +115,16 @@ export const handleFetchDataDiscoverPage = createAsyncThunk(
         break;
     }
     return dataPost;
+  }
+);
+
+export const handleGetDataDiscoverPage = createAsyncThunk(
+  "getDataDiscoverPage",
+  async ({ category, setIsFetchedData }, { dispatch }) => {
+    const response = await dispatch(handleFetchDataDiscoverPage(category));
+    const data = response.payload;
+    dispatch(handleGetDataDiscover(data));
+    setIsFetchedData(true);
   }
 );
 
@@ -291,3 +300,23 @@ export const handleShowSidebar = (toggleSidebar, page = "") => {
     }
   }
 };
+
+export const handleGetUserData = createAsyncThunk(
+  "getDataUserPost",
+  (setIsDataFetched, { dispatch }) => {
+    onSnapshot(collection(db, "user's post"), (snapshot) => {
+      const dataPost = [];
+      snapshot.forEach((doc) => {
+        dataPost.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      const filteredDataPost = dataPost.filter(
+        (post) => post.idUser === JSON.parse(localStorage.getItem("user"))?.id
+      );
+      dispatch(handleGetUserDataOnMainPage(filteredDataPost));
+      setIsDataFetched(true);
+    });
+  }
+);

@@ -2,40 +2,27 @@
 import React, { useEffect, useState } from "react";
 import PostMainPageItem from "./PostMainPageItem";
 import { useSidebarContext } from "../../Contexts/SidebarContext";
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
-import { handleGetData } from "../../redux-thunk/Slices/postMainPageSlice";
-import { handleShowSidebar } from "../../redux-thunk/handler";
+import {
+  handleGetUserData,
+  handleShowSidebar,
+} from "../../redux-thunk/handler";
 const PostsMainPage = () => {
+  const dispatch = useDispatch();
   const { data } = useSelector((state) => state.mainPage);
   const [isDataFetched, setIsDataFetched] = useState(false);
   let { toggleSidebar, setToggleSidebar } = useSidebarContext();
-  const dispatch = useDispatch();
   useEffect(() => {
-    onSnapshot(collection(db, "user's post"), (snapshot) => {
-      const dataPost = [];
-      snapshot.forEach((doc) => {
-        dataPost.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-      const filteredDataPost = dataPost.filter(
-        (post) => post.idUser === JSON.parse(localStorage.getItem("user"))?.id
-      );
-      dispatch(handleGetData(filteredDataPost));
-      setIsDataFetched(true);
-    });
-  }, [dispatch]);
-  useEffect(() => {
+    dispatch(handleGetUserData(setIsDataFetched));
     return () => {
       setToggleSidebar(true);
     };
-  }, [setToggleSidebar]);
+  }, [setToggleSidebar, dispatch]);
   return (
     <div
-      style={window.innerWidth < 1500 ? handleShowSidebar(toggleSidebar, "/") : {}}
+      style={
+        window.innerWidth < 1500 ? handleShowSidebar(toggleSidebar, "/") : {}
+      }
       onClick={(e) => {
         if (!e.currentTarget.matches("sidebar") && window.innerWidth <= 440)
           setToggleSidebar(true);
@@ -45,7 +32,7 @@ const PostsMainPage = () => {
       <p
         className={`inline-block lg:mt-8 mb:mt-6 mb-6 2xl:relative 2xl:right-[420px]`}
       >
-        Tất cả ({data?.length})
+        All ({data?.length})
       </p>
       {data.length === 0 && isDataFetched && (
         <div className="flex flex-col items-center lg:mt-5 2xl:mt-10">

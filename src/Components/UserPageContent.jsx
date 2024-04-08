@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import PostItem from "./Post/PostItem";
+import { useSidebarContext } from "../Contexts/SidebarContext";
 import { useDispatch, useSelector } from "react-redux";
 import { handleShowPostSaved } from "../redux-thunk/Slices/userPageSlice";
 import {
@@ -9,21 +10,20 @@ import {
   handleGetSavedPosts,
   handleShowSidebar,
 } from "../redux-thunk/handler";
-import { useSidebarContext } from "../Contexts/SidebarContext";
 const UserPageContent = () => {
   const ref = useRef([]);
   const dispatch = useDispatch();
-  let { toggleSidebar, setToggleSidebar } = useSidebarContext();
   const pushRefs = (refElement) => ref.current.push(refElement);
   const [isDataFetched, setIsFetchedData] = useState(false);
-  const userImg =
-    JSON.parse(localStorage.getItem("user"))?.photoURL ||
-    "https://www.blogger.com/img/logo_blogger_40px_2x.png";
+  let { toggleSidebar, setToggleSidebar } = useSidebarContext();
   const { showPostSaved, dataViewedPost, dataSavedPosts } = useSelector(
     (state) => state.userPage
   );
   const nameUser =
     JSON.parse(localStorage.getItem("user"))?.displayName || "User";
+  const userImg =
+    JSON.parse(localStorage.getItem("user"))?.photoURL ||
+    "https://www.blogger.com/img/logo_blogger_40px_2x.png";
   useEffect(() => {
     dispatch(handleGetViewedPost());
     dispatch(handleGetSavedPosts());
@@ -60,7 +60,7 @@ const UserPageContent = () => {
         toggleSidebar ? "2xl:ml-[296px]" : "2xl:pl-0 w-full "
       }`}
     >
-      <div className="mt-8 mb-4 mb:ml-2 lg:ml-0 2xl:ml-0 ">
+      <div className="flex items-center mt-8 mb-4 mb:ml-2 lg:ml-0 2xl:ml-0 ">
         <img
           src={`${userImg}`}
           alt="userImage"
@@ -80,14 +80,14 @@ const UserPageContent = () => {
           </svg>
           <span
             ref={pushRefs}
-            className="lg:text-lg font-semibold blog-seen cursor-pointer select-none"
+            className="font-semibold cursor-pointer select-none lg:text-lg blog-seen"
           >
             Viewed posts
           </span>
         </div>
         <div className="ml-10">
           <svg
-            className="w-5 h-5 inline-block mr-3"
+            className="inline-block w-5 h-5 mr-3"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 384 512"
           >
@@ -96,7 +96,7 @@ const UserPageContent = () => {
           <span
             onClick={() => dispatch(handleShowPostSaved(true))}
             ref={pushRefs}
-            className="lg:text-lg font-semibold cursor-pointer select-none"
+            className="font-semibold cursor-pointer select-none lg:text-lg"
           >
             Saved posts
           </span>
@@ -117,7 +117,14 @@ const UserPageContent = () => {
           ) : (
             dataViewedPost.length > 0 &&
             dataViewedPost.map((post) => {
-              return <PostItem key={post.id} data={post} style='2xl:max-w-[334px] 2xl:min-w-[334px]' styleImg="2xl:max-h-[180px]"></PostItem>;
+              return (
+                <PostItem
+                  key={post.id}
+                  data={post}
+                  style="2xl:max-w-[334px] 2xl:min-w-[334px]"
+                  styleImg="2xl:max-h-[180px]"
+                ></PostItem>
+              );
             })
           )}
           <div className="mb:mb-5 mb:min-w-[185px]"></div>
@@ -127,10 +134,17 @@ const UserPageContent = () => {
         <div className="mb:flex mb:flex-row mb:flex-wrap mb:justify-evenly lg:flex lg:flex-row lg:flex-wrap lg:gap-y-5 lg:justify-start 2xl:place-items-center 2xl:gap-y-0">
           {dataSavedPosts.length > 0 ? (
             dataSavedPosts.map((post) => {
-              return <PostItem key={post.id} data={post} style='2xl:max-w-[334px] 2xl:min-w-[334px]' styleImg="2xl:max-h-[180px]"></PostItem>;
+              return (
+                <PostItem
+                  key={post.id}
+                  data={post}
+                  style="2xl:max-w-[334px] 2xl:min-w-[334px]"
+                  styleImg="2xl:max-h-[180px]"
+                ></PostItem>
+              );
             })
           ) : (
-            <div className="flex flex-col justify-center items-center w-full mb:mt-10">
+            <div className="flex flex-col items-center justify-center w-full mb:mt-10">
               <img
                 className="mb:w-[150px] mb:h-[150px]"
                 src="https://www.blogger.com/img/pencilpotscissorsdesk.png"
