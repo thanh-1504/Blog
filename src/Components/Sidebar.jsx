@@ -1,16 +1,21 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect } from "react";
 import { useSidebarContext } from "../Contexts/SidebarContext";
 import { NavLink, useNavigate } from "react-router-dom";
+export let sidebarWidth 
 const Sidebar = () => {
   const navigate = useNavigate();
   const { toggleSidebar } = useSidebarContext();
   const hasUserInfo = localStorage.getItem("user");
   const isDarkMode = localStorage.getItem("theme") === "dark";
+  useEffect(() => {
+    sidebarWidth = document.querySelector(".sidebar").clientWidth;
+  }, []);
+  
   return (
     <div
-      className={`sidebar mb:-translate-x-full mb:shadow-2xl lg:shadow h-screen transition-all ease duration-500 mb:w-[60%] fixed mb:top-16 mb:left-0 lg:top-[60px] lg:w-[19.5%]  bg-white z-50 dark:bg-themeDark 2xl:w-[15%] ${
+      className={`sidebar mb:-translate-x-full mb:shadow-2xl lg:shadow h-screen transition-all ease duration-500 mb:w-[60%] fixed mb:top-16 mb:left-0 lg:top-[60px] lg:w-[20%] bg-white z-50 dark:bg-themeDark ${
         toggleSidebar
           ? "lg:translate-x-0"
           : "lg:-translate-x-full mb:translate-x-0"
@@ -112,5 +117,4 @@ const Sidebar = () => {
     </div>
   );
 };
-
 export default Sidebar;

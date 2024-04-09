@@ -10,7 +10,8 @@ import {
   handleGetDataDiscoverPage,
   handleShowSidebar,
 } from "../redux-thunk/handler";
-const DiscoverPageContent = ({ showSidebar }) => {
+import { sidebarWidth } from "./Sidebar";
+const DiscoverPageContent = () => {
   const dispatch = useDispatch();
   const [isFetchedData, setIsFetchedData] = useState(false);
   let { toggleSidebar, setToggleSidebar } = useSidebarContext();
@@ -31,17 +32,15 @@ const DiscoverPageContent = ({ showSidebar }) => {
     <div
       style={handleShowSidebar(toggleSidebar, "discoverPage")}
       onClick={(e) => {
-        if (!e.currentTarget.matches("sidebar") && window.innerWidth <= 440)
+        if (!e.currentTarget.matches("sidebar") && window.innerWidth <= 480)
           setToggleSidebar(true);
       }}
-      className={`w-full h-screen transition-all ease-linear duration-300 lg:px-0 ${
-        showSidebar ? "lg:ml-[260px] 2xl:ml-[296px]" : `lg:w-full`
-      }  `}
+      className="w-full h-screen  transition-all ease-linear duration-300 lg:px-0"
     >
-      <div className="lg:flex lg:items-center mb:block lg:mt-10 mb:mt-5 ml-1 justify-between max-w-[970px]">
-        <div className="lg:mr-[80px] mb:mb-5  mb:ml-3 lg:ml-0 lg:mb-0">
+      <div className="mb:block lg:mt-10 mb:mt-5">
+        <div className="lg:mr-[80px] mb:mb-5  mb:ml-3 lg:ml-0 lg:mb-0 inline ">
           <label className="mr-2 select-none" htmlFor="category">
-          Categorize posts
+            Categorize posts
           </label>
           <select
             onChange={(e) => dispatch(handleSelectCategoryText(e.target.value))}
@@ -54,7 +53,7 @@ const DiscoverPageContent = ({ showSidebar }) => {
             <option value="Fashion">Fashion</option>
             <option value="Game">Game</option>
           </select>
-          <Category style="mb:block lg:mb-3">{category}</Category>
+          <Category style="lg:mb-3 mb:block mb:ml-3">{category}</Category>
         </div>
       </div>
       {isFetchedData ? (
@@ -84,7 +83,27 @@ const DiscoverPageContent = ({ showSidebar }) => {
         </div>
       )}
       {isFetchedData && data.length === 0 && (
-        <div className="flex flex-col items-center justify-center">
+        <div
+          style={
+            toggleSidebar && window.innerWidth > 480
+              ? {
+                  marginLeft:
+                    window.innerWidth -
+                    sidebarWidth -
+                    (window.innerWidth - sidebarWidth + 18),
+                }
+              : {
+                  marginLeft:
+                    window.innerWidth > 480 &&
+                    `${
+                      window.innerWidth -
+                      sidebarWidth -
+                      (window.innerWidth - sidebarWidth + 140)
+                    }px`,
+                }
+          }
+          className="flex flex-col items-center justify-center transition-all ease-linear duration-300 "
+        >
           <img
             className="mb:w-[180px] mb:h-[180px]"
             src="https://www.blogger.com/img/pencilpotscissorsdesk.png"

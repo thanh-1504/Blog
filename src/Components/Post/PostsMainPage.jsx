@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import PostMainPageItem from "./PostMainPageItem";
+import { sidebarWidth } from "../Sidebar";
 import { useSidebarContext } from "../../Contexts/SidebarContext";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,7 +22,7 @@ const PostsMainPage = () => {
   return (
     <div
       style={
-        window.innerWidth < 1500 ? handleShowSidebar(toggleSidebar, "/") : {}
+        window.innerWidth < 1500 && data.length > 0 ? handleShowSidebar(toggleSidebar, "/") : {}
       }
       onClick={(e) => {
         if (!e.currentTarget.matches("sidebar") && window.innerWidth <= 440)
@@ -30,6 +31,7 @@ const PostsMainPage = () => {
       className={`h-screen lg:px-0 2xl:w-full 2xl:max-w-none 2xl:flex 2xl:flex-col 2xl:items-center mb:w-full mb:px-5 transition-all ease-in-out duration-500 `}
     >
       <p
+      style={data.length === 0 && window.innerWidth > 480 ? {marginLeft: sidebarWidth + 20} : {}}
         className={`inline-block lg:mt-8 mb:mt-6 mb-6 2xl:relative 2xl:right-[420px]`}
       >
         All ({data?.length})

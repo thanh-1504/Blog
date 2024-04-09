@@ -24,6 +24,7 @@ import { requestDataFromUserPost } from "./request";
 import { handleGetDataEditPost } from "./Slices/postEditSlice";
 import { handleGetDataFilterInput } from "./Slices/filterPostsSlice";
 import { handleGetDataDiscover } from "./Slices/discoverSlice";
+import { sidebarWidth } from "../Components/Sidebar";
 export const handleDeletePost = createAsyncThunk(
   "deletePost",
   ({ idPost, page, samePage }) => {
@@ -297,6 +298,8 @@ export const handleShowSidebar = (toggleSidebar, page = "") => {
     if (toggleSidebar) {
       if (page === "/")
         return { marginLeft: `${window.innerWidth * 0.22656}px` };
+      else if (page === "discoverPage" || page === "userPage")
+        return { marginLeft: (window.innerWidth - sidebarWidth) / 4 + 5 };
     }
   }
 };
