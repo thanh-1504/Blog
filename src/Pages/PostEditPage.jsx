@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import ReactQuill from "react-quill";
 import React, { useEffect, useState } from "react";
@@ -14,6 +15,7 @@ import { handleGetDataEditPost } from "../redux-thunk/Slices/postEditSlice";
 import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db, handleSendImgToFirebase } from "../firebaseConfig";
 import "react-quill/dist/quill.snow.css";
+import "react-toastify/dist/ReactToastify.css";
 const PostEditPage = () => {
   useShowScrollbar();
   const { idPost } = useParams();
@@ -293,7 +295,7 @@ const PostEditPage = () => {
                     </select>
                   </div>
                   <label htmlFor="imgPost" className="block mt-2 mb-1">
-                   Post photo
+                    Post photo
                   </label>
                   <div className="file-upload w-[80%]">
                     <img

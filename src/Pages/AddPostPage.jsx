@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import ReactQuill from "react-quill";
 import React, { useEffect, useState } from "react";
@@ -10,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { handleShowSettingPost } from "../redux-thunk/Slices/generalSlice";
 import { db, handleSendImgToFirebase } from "../firebaseConfig";
 import "react-quill/dist/quill.snow.css";
+import "react-toastify/dist/ReactToastify.css";
 import {
   addDoc,
   collection,
@@ -397,7 +399,7 @@ const AddPostPage = () => {
                 : "invisible opacity-0"
             } `}
           ></div>
-          <div className="overflow-auto ">
+          <div className="overflow-auto my-4">
             <EditorToolbar toolbarId={"t1"} />
           </div>
           <div className="dark:bg-themeDark h-full lg:mt-[20px] mb:mt-2 flex">
