@@ -8,7 +8,7 @@ export default {
         orangeColor: "#f57c00",
         bgOverlay: "rgba(0,0,0,0.15)",
         hamburgerHover: "rgba(60,64,67,.1)",
-        themeDark: "#000003",
+        themeDark: "#181818",
         settingPostText: "#8f8f8f",
       },
       boxShadow: {

@@ -399,7 +399,7 @@ const AddPostPage = () => {
                 : "invisible opacity-0"
             } `}
           ></div>
-          <div className="overflow-auto my-4">
+          <div className="my-4 overflow-auto">
             <EditorToolbar toolbarId={"t1"} />
           </div>
           <div className="dark:bg-themeDark h-full lg:mt-[20px] mb:mt-2 flex">
@@ -412,7 +412,7 @@ const AddPostPage = () => {
               formats={formats}
             ></ReactQuill>
             {window.innerWidth > 480 && (
-              <div className="bg-white shadow-2xl ml-10 w-[25%] pl-5 text-settingPostText 2xl:pt-5 dark:bg-themeDark dark:border-l ">
+              <div className="bg-white shadow-2xl ml-10 w-[25%] pl-5 text-settingPostText 2xl:pt-5 dark:bg-themeDark dark:border-l dark:border-l-[#aaaaaa] ">
                 <span className="lg:text-xl">Post settings</span>
                 <form>
                   <label htmlFor="name-author" className="block mt-2 mb-1">

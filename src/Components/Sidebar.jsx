@@ -15,7 +15,7 @@ const Sidebar = () => {
   
   return (
     <div
-      className={`sidebar mb:-translate-x-full mb:shadow-2xl lg:shadow h-screen transition-all ease duration-500 mb:w-[60%] fixed mb:top-16 mb:left-0 lg:top-[60px] lg:w-[20%] bg-white z-50 dark:bg-themeDark ${
+      className={`sidebar mb:-translate-x-full mb:shadow-2xl lg:shadow h-screen transition-all ease duration-500 mb:w-[60%] fixed mb:top-16 mb:left-0 lg:top-[60px] lg:w-[20%] bg-white z-50 dark:bg-themeDark dark:border-r dark:border-r-[#aaaaaa] ${
         toggleSidebar
           ? "lg:translate-x-0"
           : "lg:-translate-x-full mb:translate-x-0"
@@ -42,7 +42,7 @@ const Sidebar = () => {
           New post
         </button>
       </div>
-      <div className="mt-8 text-gray-500 border"></div>
+      <div className="mt-8 text-gray-500 border border-[#aaaaaa]"></div>
       <div className="mt-5 sidebar">
         <NavLink
           to="/"
