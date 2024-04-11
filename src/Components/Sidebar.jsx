@@ -42,7 +42,7 @@ const Sidebar = () => {
           New post
         </button>
       </div>
-      <div className="mt-8 text-gray-500 border border-[#aaaaaa]"></div>
+      <div className="mt-8 text-gray-500 border dark:border-[#aaaaaa]"></div>
       <div className="mt-5 sidebar">
         <NavLink
           to="/"
