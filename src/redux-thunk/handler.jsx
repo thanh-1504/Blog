@@ -297,7 +297,7 @@ export const handleShowSidebar = (toggleSidebar, page = "") => {
     }
     if (toggleSidebar) {
       if (page === "/")
-        return { marginLeft: `${window.innerWidth * 0.22656}px` };
+        return { marginLeft: (window.innerWidth - sidebarWidth) / 4 + 20 };
       else if (page === "discoverPage" || page === "userPage")
         return { marginLeft: (window.innerWidth - sidebarWidth) / 4 + 5 };
     }
