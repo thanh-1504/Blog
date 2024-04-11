@@ -343,7 +343,7 @@ const PostEditPage = () => {
               formats={formats}
             ></ReactQuill>
             {window.innerWidth > 440 && (
-              <div className=" bg-white shadow-2xl ml-10 w-[25%] pl-5 text-settingPostText 2xl:pt-5 dark:bg-themeDark dark:border-l ">
+              <div className=" bg-white shadow-2xl ml-10 w-[25%] pl-5 text-settingPostText 2xl:pt-5 dark:bg-themeDark dark:border-l dark:border-l-[#aaaaaa]">
                 <span className="lg:text-xl">Post settings</span>
                 <form>
                   <label htmlFor="name-author" className="block mt-2 mb-1">
