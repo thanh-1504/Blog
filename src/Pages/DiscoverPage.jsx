@@ -7,7 +7,7 @@ const DiscoverPage = () => {
   return (
     <div>
       <div className="pt-[80px]">
-        <div className="w-full h-full lg:flex">
+        <div className="w-full h-full lg:flex ">
           <Header userImgStyle="lg:mr-8" style="lg:mr-5"></Header>
           <Sidebar></Sidebar>
           <DiscoverPageContent></DiscoverPageContent>

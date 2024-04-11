@@ -35,9 +35,9 @@ const DiscoverPageContent = () => {
         if (!e.currentTarget.matches("sidebar") && window.innerWidth <= 480)
           setToggleSidebar(true);
       }}
-      className="w-full h-screen  transition-all ease-linear duration-300 lg:px-0"
+      className="w-full h-screen relative lg:px-0"
     >
-      <div className="mb:block lg:mt-10 mb:mt-5">
+      <div className="mb:block lg:mt-10 mb:mt-5 lg:ml-4">
         <div className="lg:mr-[80px] mb:mb-5  mb:ml-3 lg:ml-0 lg:mb-0 inline ">
           <label className="mr-2 select-none" htmlFor="category">
             Categorize posts
@@ -57,7 +57,9 @@ const DiscoverPageContent = () => {
         </div>
       </div>
       {isFetchedData ? (
-        <div className="mb:flex mb:flex-row mb:flex-wrap mb:justify-evenly lg:gap-x-0 lg:flex lg:flex-row lg:flex-wrap lg:justify-start lg:gap-y-5 2xl:place-items-center 2xl:gap-y-0">
+        <div
+          className={`mb:flex mb:flex-row mb:flex-wrap mb:justify-evenly lg:gap-x-0 lg:flex lg:flex-wrap lg:justify-start lg:gap-y-5 2xl:place-items-center 2xl:gap-y-0`}
+        >
           {data.length > 0 &&
             data.map((post) => {
               return (
@@ -86,20 +88,16 @@ const DiscoverPageContent = () => {
         <div
           style={
             toggleSidebar && window.innerWidth > 480
-              ? {
-                  marginLeft:
-                    window.innerWidth -
-                    sidebarWidth -
-                    (window.innerWidth - sidebarWidth + 18),
-                }
+              ? {}
               : {
                   marginLeft:
                     window.innerWidth > 480 &&
-                    `${
-                      window.innerWidth -
+                    window.innerWidth -
                       sidebarWidth -
-                      (window.innerWidth - sidebarWidth + 140)
-                    }px`,
+                      (window.innerWidth -
+                        sidebarWidth +
+                        handleShowSidebar(toggleSidebar, "discoverPage")
+                          ?.marginLeft),
                 }
           }
           className="flex flex-col items-center justify-center transition-all ease-linear duration-300 "

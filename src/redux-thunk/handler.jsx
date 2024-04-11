@@ -292,14 +292,20 @@ export const handleShowSidebar = (toggleSidebar, page = "") => {
   if (window.innerWidth > 440) {
     if (!toggleSidebar) {
       if (page === "userPage" || page === "discoverPage")
-        return { marginLeft: `${window.innerWidth * (1 - 89.32 / 100)}px` };
+        return {
+          transition: "all 300ms linear",
+          marginLeft: window.innerWidth * (1 - 89.32 / 100),
+        };
       if (page === "/") return { marginLeft: `${window.innerWidth * 0.129}px` };
     }
     if (toggleSidebar) {
       if (page === "/")
         return { marginLeft: (window.innerWidth - sidebarWidth) / 4 + 20 };
       else if (page === "discoverPage" || page === "userPage")
-        return { marginLeft: (window.innerWidth - sidebarWidth) / 4 + 5 };
+        return {
+          transition: "all 300ms linear",
+          marginLeft: (window.innerWidth - sidebarWidth) / 3.949999999,
+        };
     }
   }
 };

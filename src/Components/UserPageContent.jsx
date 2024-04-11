@@ -56,7 +56,7 @@ const UserPageContent = () => {
         if (!e.currentTarget.matches("sidebar") && window.innerWidth <= 440)
           setToggleSidebar(true);
       }}
-      className={`2xl:w-full w-full h-screen lg:pl-0 transition-all ease-linear duration-300 lg:ml-[260px] ${
+      className={`2xl:w-full w-full h-screen lg:pl-0 lg:ml-[260px] ${
         toggleSidebar ? "2xl:ml-[296px]" : "2xl:pl-0 w-full "
       }`}
     >
