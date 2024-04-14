@@ -294,7 +294,7 @@ export const handleShowSidebar = (toggleSidebar, page = "") => {
       if (page === "userPage" || page === "discoverPage")
         return {
           transition: "all 300ms linear",
-          marginLeft: window.innerWidth * (1 - 89.32 / 100),
+          marginLeft: ((window.innerWidth / 2) / 4) - 24.5,
         };
       if (page === "/") return { marginLeft: `${window.innerWidth * 0.129}px` };
     }

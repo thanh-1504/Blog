@@ -103,7 +103,7 @@ const DiscoverPageContent = () => {
           className="flex flex-col items-center justify-center transition-all ease-linear duration-300 "
         >
           <img
-            className="mb:w-[180px] mb:h-[180px]"
+            className="mb:w-[180px] mb:h-[180px] lg:w-28 lg:h-28"
             src="https://www.blogger.com/img/pencilpotscissorsdesk.png"
             alt="noPostImage"
           />

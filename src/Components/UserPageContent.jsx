@@ -146,7 +146,7 @@ const UserPageContent = () => {
           ) : (
             <div className="flex flex-col items-center justify-center w-full mb:mt-10">
               <img
-                className="mb:w-[150px] mb:h-[150px]"
+                className="mb:w-[150px] mb:h-[150px] lg:w-28 lg:h-28"
                 src="https://www.blogger.com/img/pencilpotscissorsdesk.png"
                 alt="image"
               />
