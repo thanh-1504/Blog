@@ -64,7 +64,7 @@ const DiscoverPageContent = () => {
             data.map((post) => {
               return (
                 <PostItem
-                  style="2xl:max-w-[334px] 2xl:min-w-[334px]"
+                  style="2xl:min-w-[350px]"
                   styleImg="2xl:max-h-[180px]"
                   key={post.id}
                   data={post}

@@ -118,7 +118,7 @@ const PostDetail = () => {
                   }  mb:flex mb:flex-row mb:flex-wrap mb:justify-evenly`}
                 >
                   {dataSamePost.map((post) => (
-                    <PostItem key={post.id} data={post}></PostItem>
+                    <PostItem key={post.id} data={post} style="2xl:min-w-[400px]"></PostItem>
                   ))}
                   <div className="mb:mb-5 mb:min-w-[185px]"></div>
                 </div>

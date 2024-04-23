@@ -26,7 +26,7 @@ const PostItem = ({ style = "", styleTextWrap = "",styleImg="", data }) => {
           }`
         );
       }}
-      className={`cursor-pointer mb:mb-5 mb:min-w-[185px] mb:max-w-[185px] lg:mb-0 lg:max-w-[25%] lg:px-2 2xl:min-w-[400px] 2xl:min-h-[280px] 2xl:max-h-[300px]  ${style}`}
+      className={`cursor-pointer mb:mb-5 mb:min-w-[185px] mb:max-w-[185px] lg:mb-0 lg:max-w-[25%] lg:px-2 2xl:min-h-[280px] 2xl:max-h-[300px]  ${style}`}
     >
       <img
         className={`w-full h-full object-cover lg:max-h-[150px] 2xl:max-h-[220px] mb:max-h-[150px] lg:rounded-lg hover:shadow-lg mb:rounded-md transition-all mb-3 ${styleImg}`}
